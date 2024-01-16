@@ -2,8 +2,13 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-exports.register = (userData) => User.create(userData);
+exports.register = async (userData) => {
+    const user = await User.create(userData);
 
+    const result = getAuthResult(user);
+
+    return result;
+}
 exports.login = async ({ email, password }) => {
     const user = await User.findOne({ email });
 
@@ -17,6 +22,12 @@ exports.login = async ({ email, password }) => {
         throw new Error('Invalid username or password');
     }
 
+    const result = getAuthResult(user);
+
+    return result;
+};
+
+function getAuthResult(user) {
     const payload = {
         userId: user._id,
         email: user.email,
@@ -31,4 +42,4 @@ exports.login = async ({ email, password }) => {
     };
 
     return result;
-};
+}

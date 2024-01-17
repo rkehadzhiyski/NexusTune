@@ -2,14 +2,14 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-exports.register = async ({ email, password }) => {
+exports.register = async ({ email, password, username }) => {
     const isRegistered = await User.exists({ email });
-    
-    if(isRegistered){
+
+    if (isRegistered) {
         throw new Error('User already exists');
     }
-    
-    const user = await User.create({ email, password });    
+
+    const user = await User.create({ email, password, username });
     const result = getAuthResult(user);
 
     return result;

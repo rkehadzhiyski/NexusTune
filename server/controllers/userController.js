@@ -4,7 +4,7 @@ const userManager = require('../managers/userManager');
 
 router.post('/register', async (req, res) => {
     try {
-        const result = await userManager.rregister(req.body);
+        const result = await userManager.register(req.body);
 
         res.json(result);
     } catch (error) {

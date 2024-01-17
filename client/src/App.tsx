@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./contexts/authContext";
 
 import Navigation from "./components/navigation/Navigation";
 import Register from "./components/register/Register";
@@ -8,12 +9,14 @@ import Login from "./components/login/Login";
 const App = () => {
     return (
         <>
-            <Navigation />
-            <Routes>
-                <Route path="/" element={<Home/>} ></Route>
-                <Route path="/login" element={<Login/>}></Route>
-                <Route path="/register" element={<Register />} ></Route>
-            </Routes>
+            <AuthProvider>
+                <Navigation />
+                <Routes>
+                    <Route path="/" element={<Home />} ></Route>
+                    <Route path="/login" element={<Login />}></Route>
+                    <Route path="/register" element={<Register />} ></Route>
+                </Routes>
+            </AuthProvider>
         </>
     )
 }

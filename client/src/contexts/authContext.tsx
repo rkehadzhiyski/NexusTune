@@ -8,7 +8,7 @@ interface AuthContextProps {
 
 interface AuthValues {
     registerSubmitHandler: (values: { email: string; password: string; username: string }) => Promise<void>;
-    // loginSubmitHandler: (values: { email: string; password: string }) => Promise<void>;
+    loginSubmitHandler: (values: { email: string; password: string }) => Promise<void>;
     // logoutHandler: () => void;
     // username: string;
     // email: string;
@@ -33,9 +33,20 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         navigate('/');
     };
 
-    
+    const loginSubmitHandler = async (values: { email: string; password: string }) => {
+        const response = await userService.login(values);
+
+        const result = response.data;
+
+        localStorage.setItem('accessToken', result.accessToken);
+
+        navigate('/');
+    }
+
+
     const values = {
-        registerSubmitHandler
+        registerSubmitHandler,
+        loginSubmitHandler,
     };
 
     return (

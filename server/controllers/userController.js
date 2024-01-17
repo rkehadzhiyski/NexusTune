@@ -7,11 +7,14 @@ router.post('/register', async (req, res) => {
         const result = await userManager.register(req.body);
 
         res.json(result);
+
+        //TODO: Handle error properly!
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
             message: error.message,
         });
+        
     }
 });
 

@@ -1,7 +1,10 @@
+import Navigation from "./components/navigation/Navigation";
+
 const App = () => {
     return (
         <>
-            <h1>Hello</h1>
+            <Navigation />
+            <h1>Hello HOME</h1>
         </>
     )
 }

@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import styles from './register.module.css';
 import AuthContext from '../../contexts/authContext';
 
 import Form from 'react-bootstrap/Form';
@@ -30,7 +31,7 @@ const Register: FC = () => {
     });
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
-        if(authContext){
+        if (authContext) {
             authContext.registerSubmitHandler(data);
         }
     };
@@ -40,46 +41,48 @@ const Register: FC = () => {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <FloatingLabel label="Username" className="mb-3" controlId="formGroupUsername">
-                    <Form.Control
-                        type="username"
-                        {...register('username')}
-                        placeholder="Enter username"
-                        autoComplete="username"
-                    />
-                    <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
-                </FloatingLabel>
-                <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">
-                    <Form.Control
-                        type="email"
-                        {...register('email')}
-                        placeholder="email"
-                        autoComplete='email'
-                    />
-                    <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
-                </FloatingLabel>
-                <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
-                    <Form.Control
-                        type="password"
-                        {...register('password')}
-                        placeholder="Password"
-                        autoComplete="current-password"
-                    />
-                    <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
-                </FloatingLabel>
-                <Form.Text className="text-muted">
-                    Already have an account? <span onClick={navigateLogin}>Login</span>.
-                </Form.Text>
-                <div>
-                    <Button variant="primary" type="submit">
-                        Register
-                    </Button>
-                </div>
-            </Form>
-        </div>
+        <>
+            <h2 className={styles['heading']}>Register</h2>
+            <div className={styles['register-form-container']}>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <FloatingLabel label="Username" className="mb-3" controlId="formGroupUsername">
+                        <Form.Control
+                            type="username"
+                            {...register('username')}
+                            placeholder="Enter username"
+                            autoComplete="username"
+                        />
+                        <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
+                    </FloatingLabel>
+                    <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">
+                        <Form.Control
+                            type="email"
+                            {...register('email')}
+                            placeholder="email"
+                            autoComplete='email'
+                        />
+                        <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
+                    </FloatingLabel>
+                    <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
+                        <Form.Control
+                            type="password"
+                            {...register('password')}
+                            placeholder="Password"
+                            autoComplete="current-password"
+                        />
+                        <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
+                    </FloatingLabel>
+                    <Form.Text className="text-muted">
+                        Already have an account? <span onClick={navigateLogin}>Login</span>.
+                    </Form.Text>
+                    <div>
+                        <Button variant="primary" type="submit">
+                            Register
+                        </Button>
+                    </div>
+                </Form>
+            </div>
+        </>
     );
 };
 

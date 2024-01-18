@@ -61,7 +61,6 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
     const loginSubmitHandler = async (values: { email: string; password: string }) => {
         const response = await userService.login(values);
         const result = response.data;
-        console.log(result)
 
         setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);

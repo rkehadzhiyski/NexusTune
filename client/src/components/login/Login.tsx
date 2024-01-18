@@ -5,6 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
 import AuthContext from '../../contexts/authContext';
 
@@ -38,8 +39,7 @@ const Login: FC = () => {
         <div>
             <h2>Login</h2>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group className="mb-3" controlId="formGroupEmail">
-                    <Form.Label>Email address</Form.Label>
+                <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">                    
                     <Form.Control
                         type="email"
                         {...register('email')}
@@ -47,9 +47,8 @@ const Login: FC = () => {
                         autoComplete="email-input"
                     />
                     <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formGroupPassword">
-                    <Form.Label>Password</Form.Label>
+                </FloatingLabel>
+                <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
                     <Form.Control
                         type="password"
                         {...register('password')}
@@ -57,7 +56,7 @@ const Login: FC = () => {
                         autoComplete="current-password"
                     />
                     <Form.Text className="text-danger">{errors['password']?.message}</Form.Text>
-                </Form.Group>
+                </FloatingLabel>
                 <Form.Text className="text-muted">
                     Already a registered user?
                     <span onClick={navigateRegister}>

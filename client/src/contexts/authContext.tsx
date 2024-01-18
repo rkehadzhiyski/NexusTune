@@ -23,7 +23,20 @@ interface AuthValues {
     isAuthenticated: boolean;
 }
 
-const AuthContext = createContext<AuthValues | undefined>(undefined);
+const initialAuthValues: AuthValues = {
+    registerSubmitHandler: async () => {},
+    loginSubmitHandler: async () => {},
+    // logoutHandler: () => {},
+    user: {
+        email: '',
+        username: '',
+        userId: '',
+        accessToken: '',
+    },
+    isAuthenticated: false,
+};
+
+const AuthContext = createContext<AuthValues>(initialAuthValues);
 
 export const AuthProvider: React.FC<AuthContextProps> = ({
     children,
@@ -48,6 +61,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
     const loginSubmitHandler = async (values: { email: string; password: string }) => {
         const response = await userService.login(values);
         const result = response.data;
+        console.log(result)
 
         setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);

@@ -1,19 +1,26 @@
-import { createContext, ReactNode } from "react";
+import { createContext, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import * as userService from '../services/userService';
+import usePersistedState from '../hooks/usePersistedState';
 
 interface AuthContextProps {
     children: ReactNode;
+}
+
+interface UserData {
+    email: string;
+    username: string;
+    userId: string;
+    accessToken?: string;
 }
 
 interface AuthValues {
     registerSubmitHandler: (values: { email: string; password: string; username: string }) => Promise<void>;
     loginSubmitHandler: (values: { email: string; password: string }) => Promise<void>;
     // logoutHandler: () => void;
-    // username: string;
-    // email: string;
-    // userId: string;
-    // isAuthenticated: boolean;
+    user: UserData;
+    isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthValues | undefined>(undefined);
@@ -22,11 +29,17 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
     children,
 }) => {
     const navigate = useNavigate();
+    const [auth, setAuth] = usePersistedState<UserData>('auth', {
+        email: '',
+        username: '',
+        userId: ''
+    });
 
     const registerSubmitHandler = async (values: { email: string; password: string; username: string }): Promise<void> => {
         const response = await userService.register(values);
         const result = response.data;
 
+        setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);
 
         navigate('/');
@@ -36,6 +49,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         const response = await userService.login(values);
         const result = response.data;
 
+        setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);
 
         navigate('/');
@@ -44,6 +58,13 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
     const values = {
         registerSubmitHandler,
         loginSubmitHandler,
+        user: {
+            email: auth.email || '',
+            username: auth.username || '',
+            userId: auth.userId || '',
+            accessToken: auth.accessToken || '',
+        },
+        isAuthenticated: !!auth.accessToken,
     };
 
     return (

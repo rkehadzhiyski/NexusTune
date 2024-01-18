@@ -18,15 +18,15 @@ interface UserData {
 interface AuthValues {
     registerSubmitHandler: (values: { email: string; password: string; username: string }) => Promise<void>;
     loginSubmitHandler: (values: { email: string; password: string }) => Promise<void>;
-    // logoutHandler: () => void;
+    logoutHandler: () => void;
     user: UserData;
     isAuthenticated: boolean;
 }
 
 const initialAuthValues: AuthValues = {
-    registerSubmitHandler: async () => {},
-    loginSubmitHandler: async () => {},
-    // logoutHandler: () => {},
+    registerSubmitHandler: async () => { },
+    loginSubmitHandler: async () => { },
+    logoutHandler: () => { },
     user: {
         email: '',
         username: '',
@@ -69,9 +69,22 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         navigate('/');
     }
 
+    const logoutHandler = async () => {
+        await userService.logout()
+        //TODO : Might need to handle this otherwise
+        setAuth({
+            email: '',
+            username: '',
+            userId: ''
+        });
+
+        localStorage.removeItem('accessToken');
+    }
+
     const values = {
         registerSubmitHandler,
         loginSubmitHandler,
+        logoutHandler,
         user: {
             email: auth.email || '',
             username: auth.username || '',

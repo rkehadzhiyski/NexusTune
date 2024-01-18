@@ -10,6 +10,7 @@ const Navigation = () => {
     const {
         isAuthenticated,
         user,
+        logoutHandler,
     } = useContext(AuthContext)
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
@@ -21,7 +22,7 @@ const Navigation = () => {
                         {isAuthenticated && (
                             <>
                                 <span>{user.username}</span>
-                                <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
+                                <Nav.Link as={Link} onClick={logoutHandler} to="/">Logout</Nav.Link>
                             </>
                         )}
 

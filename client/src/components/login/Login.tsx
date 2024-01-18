@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import AuthContext from '../../contexts/authContext';
 

@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import AuthContext from '../../contexts/authContext';
 
 import Form from 'react-bootstrap/Form';
+import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
 interface FormData {
@@ -42,8 +43,7 @@ const Register: FC = () => {
         <div>
             <h2>Register</h2>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                <Form.Group className="mb-3" controlId="formGroupUsername">
-                    <Form.Label>Username</Form.Label>
+                <FloatingLabel label="Username" className="mb-3" controlId="formGroupUsername">
                     <Form.Control
                         type="username"
                         {...register('username')}
@@ -51,9 +51,8 @@ const Register: FC = () => {
                         autoComplete="username"
                     />
                     <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formGroupEmail">
-                    <Form.Label>Email address</Form.Label>
+                </FloatingLabel>
+                <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">
                     <Form.Control
                         type="email"
                         {...register('email')}
@@ -61,9 +60,8 @@ const Register: FC = () => {
                         autoComplete='email'
                     />
                     <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formGroupPassword">
-                    <Form.Label>Password</Form.Label>
+                </FloatingLabel>
+                <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
                     <Form.Control
                         type="password"
                         {...register('password')}
@@ -71,7 +69,7 @@ const Register: FC = () => {
                         autoComplete="current-password"
                     />
                     <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
-                </Form.Group>
+                </FloatingLabel>
                 <Form.Text className="text-muted">
                     Already have an account? <span onClick={navigateLogin}>Login</span>.
                 </Form.Text>

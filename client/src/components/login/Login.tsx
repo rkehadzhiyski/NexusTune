@@ -4,6 +4,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import styles from './login.module.css';
+
 import Form from 'react-bootstrap/Form';
 import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -36,40 +38,42 @@ const Login: FC = () => {
         navigate('/register');
     };
     return (
-        <div>
-            <h2>Login</h2>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">                    
-                    <Form.Control
-                        type="email"
-                        {...register('email')}
-                        placeholder="Enter email"
-                        autoComplete="email-input"
-                    />
-                    <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
-                </FloatingLabel>
-                <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
-                    <Form.Control
-                        type="password"
-                        {...register('password')}
-                        placeholder="Password"
-                        autoComplete="current-password"
-                    />
-                    <Form.Text className="text-danger">{errors['password']?.message}</Form.Text>
-                </FloatingLabel>
-                <Form.Text className="text-muted">
-                    Already a registered user?
-                    <span onClick={navigateRegister}>
-                        Register now
-                    </span>.
-                </Form.Text>
-                <div>
-                    <Button variant="primary" type="submit">
-                        Login
-                    </Button>
-                </div>
-            </Form>
-        </div>
+        <>
+            <h2 className={styles['heading']}>Login</h2>
+            <div className={styles['login-form-container']}>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">
+                        <Form.Control
+                            type="email"
+                            {...register('email')}
+                            placeholder="Enter email"
+                            autoComplete="email-input"
+                        />
+                        <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
+                    </FloatingLabel>
+                    <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
+                        <Form.Control
+                            type="password"
+                            {...register('password')}
+                            placeholder="Password"
+                            autoComplete="current-password"
+                        />
+                        <Form.Text className="text-danger">{errors['password']?.message}</Form.Text>
+                    </FloatingLabel>
+                    <Form.Text className="text-muted">
+                        Already a registered user?
+                        <span onClick={navigateRegister}>
+                            Register now
+                        </span>.
+                    </Form.Text>
+                    <div>
+                        <Button variant="primary" type="submit">
+                            Login
+                        </Button>
+                    </div>
+                </Form>
+            </div>
+        </>
     );
 };
 

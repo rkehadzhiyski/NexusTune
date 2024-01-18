@@ -1,0 +1,11 @@
+.login-form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+    margin-bottom: 20px;
+}

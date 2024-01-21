@@ -1,7 +1,9 @@
 const Podcast = require('../models/Podcast');
 
-exports.getAll = () => Podcast.find();
+exports.create = (podcastData) => Podcast.create(podcastData);
 
 exports.getOne = (podcastId) => Podcast.findById(podcastId);
 
-exports.create = (podcastData) => Podcast.create(podcastData);
+exports.getAll = () => Podcast.find();
+
+exports.update = (podcastId) => Podcast.findByIdAndUpdate(podcastId);

@@ -9,6 +9,14 @@ const podcastSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    img: {
+        type: String,
+        required: true,
+    },
+    ownerId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+    },
 });
 
 const Podcast = mongoose.model('Podcast', podcastSchema);

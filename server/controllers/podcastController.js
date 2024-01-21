@@ -10,7 +10,10 @@ router.post('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const podcast = await podcastManager.create(req.body);
+        const podcast = await podcastManager.create({
+            ...req.body,
+            ownerId: req.user.id
+        });
         res.status(204).end();
     } catch (error) {
         res.status(400).json({

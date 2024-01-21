@@ -14,6 +14,7 @@ exports.register = async ({ email, password, username }) => {
 
     return result;
 }
+
 exports.login = async ({ email, password }) => {
     const user = await User.findOne({ email });
 
@@ -34,14 +35,14 @@ exports.login = async ({ email, password }) => {
 
 function getAuthResult(user) {
     const payload = {
-        userId: user._id,
+        userId: user.id,
         email: user.email,
     };
     //TODO: Make it async
     const token = jwt.sign(payload, 'SECRETSECRET', { expiresIn: '1d' });
 
     const result = {
-        userId: user._id,
+        userId: user.id,
         email: user.email,
         username :user.username,
         accessToken: token,

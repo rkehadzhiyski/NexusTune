@@ -22,4 +22,10 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/:podcastId', async (req,res) =>{
+    const podcast = await podcastManager.getOne(req.params.podcastId);
+
+    res.json(podcast);
+});
+
 module.exports = router;

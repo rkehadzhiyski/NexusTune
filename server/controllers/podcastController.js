@@ -28,4 +28,10 @@ router.get('/:podcastId', async (req,res) =>{
     res.json(podcast);
 });
 
+router.put('/:podcastId', async (req,res) => {
+    await podcastManager.update(req.params.podcastId, req.body);
+
+    res.status(204).end();
+});
+
 module.exports = router;

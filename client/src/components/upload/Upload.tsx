@@ -1,33 +1,26 @@
 import { ChangeEvent, useState } from "react";
-import { storage } from '../../../firebase';
-import { getDownloadURL, list, ref, uploadBytes } from 'firebase/storage';
+import { uploadFile } from '../../services/storageService';
+
 
 const Upload = () => {
-    const [audioUpload, setAudioUpload] = useState<File>();
-    const [audioUrl, setAudioUrl] = useState<string | null>();
+    const [audioUpload, setAudioUpload] = useState<File | undefined>();
+    const [audioUrl, setAudioUrl] = useState<string | undefined>();
 
-    const uploadImage = async () => {
-        if (audioUpload == null) return;
-
-        const folderRef = ref(storage, 'audio/');
-        const audioRef = ref(storage, `audio/${audioUpload.name}`);
-
-        try {
-            await uploadBytes(audioRef, audioUpload);
-
-            const response = await list(folderRef);
-
-            response.items.map(async (item) => {
-                const url = await getDownloadURL(item);
-                setAudioUrl(url);
-            });
-        } catch (error) {
-            console.error("Error uploading or fetching audio:", error);
+    const onClick = async () => {
+        if (audioUpload) {
+            try {
+                const result = await uploadFile(audioUpload);
+                if (result) {
+                    setAudioUrl(result.url);
+                }
+            } catch (error) {
+                console.error("Error uploading or fetching audio:", error);
+            }
         }
     };
-    
+
     //TODO : send the url to the database
-    console.log(audioUrl)
+    console.log(audioUrl);
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
@@ -38,7 +31,7 @@ const Upload = () => {
     return (
         <>
             <input type="file" onChange={handleFileChange} />
-            <button onClick={uploadImage}>Upload</button>
+            <button onClick={onClick}>Upload</button>
         </>
     );
 }

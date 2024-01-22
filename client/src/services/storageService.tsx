@@ -18,6 +18,7 @@ export const uploadFile = async (audioUpload: File | undefined): Promise<UploadF
 
         response.items.map(async (item: StorageReference) => {
             const url = await getDownloadURL(item);
+            console.log(url)
             return url;
         });
     } catch (error) {

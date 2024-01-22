@@ -1,8 +1,12 @@
+import { ChangeEvent, useContext, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { create } from '../../services/podcastService';
 
+import { create } from '../../services/podcastService';
+import { uploadFile } from '../../services/storageService';
+
+import AuthContext from '../../contexts/authContext';
 import Form from 'react-bootstrap/Form';
 import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -13,6 +17,13 @@ interface FormData {
     image: string;
 }
 
+interface CreatePodcastData {
+    name: string;
+    url: string;
+    image: string;
+    ownerId: string;
+}
+
 const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
     audioFile: yup.string().required('File is required'),
@@ -20,12 +31,34 @@ const schema = yup.object().shape({
 });
 
 const Upload = () => {
+    const [audioUpload, setAudioUpload] = useState<File>();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        create(data);
+    const {
+        user,
+    } = useContext(AuthContext)
+
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+        const response = await uploadFile(audioUpload);
+        if (response && response.url) {
+            const createData: CreatePodcastData = {
+                name: data.name,
+                url: response.url,
+                image: data.image,
+                ownerId: user.userId,
+            };
+            create(createData)
+        } else {
+            console.error("Upload failed. URL is undefined.");
+        }
+    };
+
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setAudioUpload(event.target.files[0]);
+        }
     };
 
     return (
@@ -55,6 +88,7 @@ const Upload = () => {
                     <Form.Control
                         type="file"
                         {...register('audioFile')}
+                        onChange={handleFileChange}
                         placeholder="Submit File" />
                 </Form.Group>
                 <div>

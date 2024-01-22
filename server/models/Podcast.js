@@ -5,7 +5,7 @@ const podcastSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    audioFile: {
+    url: {
         type: String,
         required: true,
     },

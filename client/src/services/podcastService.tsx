@@ -4,7 +4,7 @@ const baseUrl = 'http://localhost:8888/podcasts';
 
 interface uploadData {
     name: string;
-    audioFile: string;
+    url: string;
     image: string;
 }
 

@@ -10,14 +10,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        console.log(req.body)
-        const podcast = await podcastManager.create({
-            ...req.body,
-            //TODO attach users id
-            // ownerId: req.user.id
-        });
+        const podcast = await podcastManager.create(req.body);
         res.status(204).end();
     } catch (error) {
+        console.log(error)
         res.status(400).json({
             message: 'Cannot create Podcast'
         });

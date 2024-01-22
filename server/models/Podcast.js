@@ -5,11 +5,11 @@ const podcastSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    url: {
+    audioFile: {
         type: String,
         required: true,
     },
-    img: {
+    image: {
         type: String,
         required: true,
     },

@@ -2,7 +2,7 @@ const router = require('express').Router();
 
 const podcastManager = require('../managers/podcastManager');
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
     const podcasts = await podcastManager.getAll();
 
     res.json(podcasts);
@@ -10,9 +10,11 @@ router.post('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
+        console.log(req.body)
         const podcast = await podcastManager.create({
             ...req.body,
-            ownerId: req.user.id
+            //TODO attach users id
+            // ownerId: req.user.id
         });
         res.status(204).end();
     } catch (error) {

@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { create } from '../../services/podcastService';
 
 import Form from 'react-bootstrap/Form';
 import { FloatingLabel } from 'react-bootstrap';
@@ -23,8 +24,8 @@ const Upload = () => {
         resolver: yupResolver(schema),
     });
 
-    const onSubmit:SubmitHandler<FormData> = (data) => {
-        console.log(data)
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        create(data);
     };
 
     return (
@@ -56,7 +57,6 @@ const Upload = () => {
                         {...register('audioFile')}
                         placeholder="Submit File" />
                 </Form.Group>
-
                 <div>
                     <Button variant="primary" type="submit">
                         Upload

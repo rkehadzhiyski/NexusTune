@@ -26,7 +26,7 @@ const Navigation = () => {
                     <Nav>
                         {isAuthenticated && (
                             <div className={styles['profile-info-container']}> 
-                            <img className={styles['profile-image']} src="../../../public/profile-image.jpg" alt="profile-image" />
+                            <img className={styles['profile-image']} src="/profile-image.jpg" alt="profile-image" />
                                 <span>{user.username}</span>
                                 <Nav.Link as={Link} onClick={logoutHandler} to="/">Logout</Nav.Link>
                             </div>

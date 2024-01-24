@@ -2,16 +2,20 @@ const mongoose = require('mongoose');
 
 const podcastSchema = new mongoose.Schema({
     name: {
-        type:String,
-        required:true,
+        type: String,
+        required: true,
     },
-    url: {
+    description: {
         type: String,
         required: true,
     },
     image: {
         type: String,
         required: true,
+    },
+    createdAt: {
+        type: String,
+        required: true
     },
     ownerId: {
         type: mongoose.Types.ObjectId,

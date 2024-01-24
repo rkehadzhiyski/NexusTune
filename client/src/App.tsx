@@ -5,7 +5,7 @@ import Navigation from "./components/navigation/Navigation";
 import Register from "./components/register/Register";
 import Home from "./components/home/Home";
 import Login from "./components/login/Login";
-import Upload from "./components/upload/Upload";
+import Upload from "./components/createPodcast/CreatePodcast";
 
 const App = () => {
     return (

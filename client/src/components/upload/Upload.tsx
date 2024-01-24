@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
-import { create } from '../../services/podcastService';
+import * as podcast from  '../../services/podcastService';
 import { uploadFile } from '../../services/storageService';
 
 import AuthContext from '../../contexts/authContext';
@@ -43,15 +43,15 @@ const Upload = () => {
     const onSubmit: SubmitHandler<FormData> = async (data) => {
         const response = await uploadFile(audioUpload);
         if (response && response.url) {
-            const createData: CreatePodcastData = {
+            const podcastData: CreatePodcastData = {
                 name: data.name,
                 url: response.url,
                 image: data.image,
                 ownerId: user.userId,
             };
-            create(createData)
+            podcast.create(podcastData);
         } else {
-            console.error("Upload failed. URL is undefined.");
+            console.error("Upload failed!");
         }
     };
 

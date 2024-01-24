@@ -4,10 +4,10 @@ import * as podcastService from '../../services/podcastService';
 import PodcastCard from "../podcastCard/PodcastCard";
 
 interface Podcast {
-    id: number;
+    _id: number;
     name: string;
     description: string;
-    image:string
+    image: string
 }
 
 const Home = () => {
@@ -16,20 +16,20 @@ const Home = () => {
     useEffect(() => {
         podcastService.getAll()
             .then(response => {
-                // Update the state with the fetched podcasts
-                console.log(response);
                 setPodcasts(response.data);
             })
             .catch(error => {
                 console.error("Error fetching podcasts:", error);
             });
-    }, []);
+    }, [podcasts]);
 
     return (
         <>
-            {podcasts.map((podcast) => (
-                <PodcastCard key={podcast.id} podcast={podcast}/>
-            ))} 
+            <div style={{ display: 'flex', gap: '20px' }}>
+                {podcasts.map((podcast) => (
+                    <PodcastCard key={podcast._id} podcast={podcast} />
+                ))}
+            </div>
         </>
     );
 }

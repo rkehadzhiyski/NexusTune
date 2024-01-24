@@ -31,7 +31,7 @@ const schema = yup.object().shape({
     description: yup.string().required('Description is required'),
 });
 
-const Upload = () => {
+const CreatePodcast = () => {
     const [podcastImage, setPodcastImage] = useState<File>();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -103,4 +103,4 @@ const Upload = () => {
     );
 }
 
-export default Upload;
+export default CreatePodcast;

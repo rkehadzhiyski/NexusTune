@@ -1,7 +1,17 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function PodcastCard(podcast:object) {
+interface Podcast {
+  name: string;
+  description: string;
+  image: string;
+}
+
+interface PodcastCardProps {
+  podcast: Podcast;
+}
+
+const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Img variant="top" src={podcast.image} />

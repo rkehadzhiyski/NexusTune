@@ -13,3 +13,8 @@ export const create = async (data: uploadData) => {
     const result = await axios.post(baseUrl, data);
     return result
 };
+
+export const getAll = async () => {
+    const result = await axios.get(baseUrl);
+    return result;
+}

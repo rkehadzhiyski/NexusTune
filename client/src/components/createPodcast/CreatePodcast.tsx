@@ -15,7 +15,7 @@ import { uploadFile } from '../../services/storageService';
 interface FormData {
     name: string;
     description: string;
-    podcastImage: string;
+    podcastImage: unknown;
 }
 
 interface CreatePodcastData {
@@ -26,9 +26,23 @@ interface CreatePodcastData {
     ownerId: string;
 }
 
+const supportedImageFormats = ['image/jpeg', 'image/png', 'image/gif'];
+
+const isFileList = (value: object): value is FileList => value && value instanceof FileList;
+
 const schema = yup.object().shape({
     name: yup.string().required('Name is required'),
-    podcastImage: yup.string().required('File is required'),
+    podcastImage: yup.mixed().required('Image is required')
+        .test('type', 'Unsupported file format', function (value) {
+            if (!value) {
+                return true; // Allow empty values (no file selected)
+            }
+            
+            const file = isFileList(value) ? value[0] : value;
+            
+            return file && supportedImageFormats.includes((file as File).type);
+        })
+        ,
     description: yup.string().required('Description is required'),
 });
 
@@ -43,6 +57,7 @@ const CreatePodcast = () => {
     } = useContext(AuthContext);
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
+
         const response = await uploadFile(podcastImage);
         if (response && response.url) {
             const podcastData: CreatePodcastData = {
@@ -85,7 +100,9 @@ const CreatePodcast = () => {
                             type="file"
                             {...register('podcastImage')}
                             onChange={handleFileChange}
+                            multiple={false}
                             placeholder="Profile Image" />
+                        <Form.Text className="text-danger">{errors['podcastImage']?.message}</Form.Text>
                     </Form.Group>
                     <FloatingLabel className='mb-3' label="Description" controlId="formGroupDescription">
                         <Form.Control

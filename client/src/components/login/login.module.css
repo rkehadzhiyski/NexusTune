@@ -24,6 +24,11 @@
     margin-bottom: 15px;
 }
 
+.form{
+    width: 100%;
+    padding: 30px;
+}
+
 .form-fields {
     width: 100%;
 }

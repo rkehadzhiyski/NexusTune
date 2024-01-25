@@ -41,7 +41,7 @@ const Login: FC = () => {
         <div className={styles['login-page']}>
             <div className={styles['login-form-container']}>
                 <h2 className={styles['heading']}>Login</h2>
-                <Form onSubmit={handleSubmit(onSubmit)}>
+                <Form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
                     <FloatingLabel label="Email address" className={(styles['form-fields'], 'mb-3')} controlId="formGroupEmail">
                         <Form.Control
                             

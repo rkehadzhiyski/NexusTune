@@ -41,11 +41,11 @@ const Register: FC = () => {
     };
 
     return (
-        <>
-            <h2 className={styles['heading']}>Register</h2>
+        <div className={styles['register-page']}>
             <div className={styles['register-form-container']}>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                    <FloatingLabel label="Username" className="mb-3" controlId="formGroupUsername">
+                <h2 className={styles['heading']}>Register</h2>
+                <Form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
+                    <FloatingLabel label="Username" className={(styles['form-fields'], 'mb-3')} controlId="formGroupUsername">
                         <Form.Control
                             type="username"
                             {...register('username')}
@@ -54,7 +54,7 @@ const Register: FC = () => {
                         />
                         <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
                     </FloatingLabel>
-                    <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">
+                    <FloatingLabel label="Email address" className={(styles['form-fields'], 'mb-3')} controlId="formGroupEmail">
                         <Form.Control
                             type="email"
                             {...register('email')}
@@ -63,7 +63,7 @@ const Register: FC = () => {
                         />
                         <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
                     </FloatingLabel>
-                    <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
+                    <FloatingLabel label="Password" className={(styles['form-fields'], 'mb-3')} controlId="formGroupPassword">
                         <Form.Control
                             type="password"
                             {...register('password')}
@@ -72,17 +72,19 @@ const Register: FC = () => {
                         />
                         <Form.Text className="text-danger">{errors['username']?.message}</Form.Text>
                     </FloatingLabel>
-                    <Form.Text className="text-muted">
-                        Already have an account? <span onClick={navigateLogin}>Login</span>.
-                    </Form.Text>
                     <div>
-                        <Button variant="primary" type="submit">
+                        <Button className={styles['register-button']} variant="primary" type="submit">
                             Register
                         </Button>
                     </div>
+                    <Form.Text className="text-muted">
+                        Already have an account? <span className={styles['underline-pointer']} onClick={navigateLogin}>Login</span>.
+                    </Form.Text>
+
+
                 </Form>
             </div>
-        </>
+        </div>
     );
 };
 

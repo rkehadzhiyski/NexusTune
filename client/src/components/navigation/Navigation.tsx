@@ -7,6 +7,7 @@ import styles from '../navigation/navigation.module.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { NavDropdown } from 'react-bootstrap';
 
 const Navigation = () => {
     const {
@@ -25,10 +26,12 @@ const Navigation = () => {
                     </Nav>
                     <Nav>
                         {isAuthenticated && (
-                            <div className={styles['profile-info-container']}> 
-                            <img className={styles['profile-image']} src="/profile-image.jpg" alt="profile-image" />
-                                <span>{user.username}</span>
-                                <Nav.Link as={Link} onClick={logoutHandler} to="/">Logout</Nav.Link>
+                            <div className={styles['profile-info-container']}>
+                                <img className={styles['profile-image']} src="/profile-image.jpg" alt="profile-image" />
+                                <NavDropdown title={user.username} id="nav-dropdown">
+                                    <NavDropdown.Divider />
+                                    <NavDropdown.Item as={Link} onClick={logoutHandler} to="/">Logout</NavDropdown.Item>
+                                </NavDropdown>
                             </div>
                         )}
 

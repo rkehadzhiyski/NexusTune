@@ -35,14 +35,13 @@ const schema = yup.object().shape({
     podcastImage: yup.mixed().required('Image is required')
         .test('type', 'Unsupported file format', function (value) {
             if (!value) {
-                return true; // Allow empty values (no file selected)
+                return false;
             }
             
             const file = isFileList(value) ? value[0] : value;
             
             return file && supportedImageFormats.includes((file as File).type);
-        })
-        ,
+        }),
     description: yup.string().required('Description is required'),
 });
 

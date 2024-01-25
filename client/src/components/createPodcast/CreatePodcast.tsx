@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
+import styles from '../createPodcast/createPodcast.module.css';
 import * as podcast from '../../services/podcastService';
 
 import AuthContext from '../../contexts/authContext';
@@ -64,42 +65,56 @@ const CreatePodcast = () => {
     };
 
     return (
-        <>
-            <Form onSubmit={handleSubmit(onSubmit)}>
-                <FloatingLabel label="Name" className="mb-3" controlId="formGroupName">
-                    <Form.Control
-                        type="name"
-                        {...register('name')}
-                        placeholder="Enter a name"
-                        autoComplete="name-input"
-                    />
-                    <Form.Text className="text-danger">{errors['name']?.message}</Form.Text>
-                </FloatingLabel>
-                <FloatingLabel label="description" className="mb-3" controlId="formGroupImage">
-                    <Form.Control
-                        type="text"
-                        {...register('description')}
-                        placeholder="Description"
-                        autoComplete="current-image"
-                    />
-                    <Form.Text className="text-danger">{errors['description']?.message}</Form.Text>
-                </FloatingLabel>
-                <Form.Text className="text-muted">
-                </Form.Text>
-                <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Control
-                        type="file"
-                        {...register('podcastImage')}
-                        onChange={handleFileChange}
-                        placeholder="Profile Image" />
-                </Form.Group>
-                <div>
-                    <Button variant="primary" type="submit">
-                        Upload
-                    </Button>
-                </div>
-            </Form>
-        </>
+        <div className={styles['create-podcast-page']}>
+            <div className={styles['create-podcast-form-container']}>
+                <Form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
+                    <h1 className={styles['heading']}>Create Podcast</h1>
+                    <FloatingLabel label="Name" className="mb-3" controlId="formGroupName">
+                        <Form.Control
+                            type="name"
+                            {...register('name')}
+                            placeholder="Enter a name"
+                            autoComplete="name-input"
+                        />
+                        <Form.Text className="text-danger">{errors['name']?.message}</Form.Text>
+                    </FloatingLabel>
+                    <Form.Text className="text-muted">
+                    </Form.Text>
+                    <Form.Group controlId="formFile" className="mb-3">
+                        <Form.Control
+                            type="file"
+                            {...register('podcastImage')}
+                            onChange={handleFileChange}
+                            placeholder="Profile Image" />
+                    </Form.Group>
+                    <FloatingLabel className='mb-3' label="Description" controlId="formGroupDescription">
+                        <Form.Control
+                            style={{ height: '100px' }}
+                            as={'textarea'}
+                            type="text"
+                            {...register('description')}
+                            placeholder="Description"
+                            autoComplete="description"
+                        />
+                        <Form.Text className="text-danger">{errors['description']?.message}</Form.Text>
+                    </FloatingLabel>
+                    <div>
+                        <Button className={styles['create-podcast-button']} variant="primary" type="submit">
+                            Upload
+                        </Button>
+                    </div>
+                </Form>
+            </div>
+
+            <div className={styles['podcast-info-container']}>
+                <h2>Information</h2>
+                <p className={styles['info-text']}>Please provide a name, an image, and a brief description for your podcast.
+                    This information will be displayed to listeners in the podcast directory.
+                    Make sure your image is clear and represents your podcast well,
+                    as it will be the first thing potential listeners see.
+                </p>
+            </div>
+        </div>
     );
 }
 

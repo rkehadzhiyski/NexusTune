@@ -38,12 +38,13 @@ const Login: FC = () => {
         navigate('/register');
     };
     return (
-        <>
-            <h2 className={styles['heading']}>Login</h2>
+        <div className={styles['login-page']}>
             <div className={styles['login-form-container']}>
+                <h2 className={styles['heading']}>Login</h2>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                    <FloatingLabel label="Email address" className="mb-3" controlId="formGroupEmail">
+                    <FloatingLabel label="Email address" className={(styles['form-fields'], 'mb-3')} controlId="formGroupEmail">
                         <Form.Control
+                            
                             type="email"
                             {...register('email')}
                             placeholder="Enter email"
@@ -51,7 +52,7 @@ const Login: FC = () => {
                         />
                         <Form.Text className="text-danger">{errors['email']?.message}</Form.Text>
                     </FloatingLabel>
-                    <FloatingLabel label="Password" className="mb-3" controlId="formGroupPassword">
+                    <FloatingLabel label="Password" className={(styles['form-fields'], 'mb-3')} controlId="formGroupPassword">
                         <Form.Control
                             type="password"
                             {...register('password')}
@@ -60,20 +61,20 @@ const Login: FC = () => {
                         />
                         <Form.Text className="text-danger">{errors['password']?.message}</Form.Text>
                     </FloatingLabel>
-                    <Form.Text className="text-muted">
-                        Already a registered user?
-                        <span onClick={navigateRegister}>
-                            Register now
-                        </span>.
-                    </Form.Text>
                     <div>
-                        <Button variant="primary" type="submit">
+                        <Button className={styles['login-button']} variant="primary" type="submit">
                             Login
                         </Button>
                     </div>
+                    <Form.Text className="text-muted">
+                        Already a registered user?
+                        <span className={styles['underline-pointer']} onClick={navigateRegister}>
+                            Register now
+                        </span>.
+                    </Form.Text>
                 </Form>
             </div>
-        </>
+        </div>
     );
 };
 

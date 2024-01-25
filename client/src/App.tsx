@@ -9,17 +9,19 @@ import CreatePodcast from "./components/createPodcast/CreatePodcast";
 
 const App = () => {
     return (
-        <>
-            <AuthProvider>
-                <Navigation />
+        <AuthProvider>
+            <div className='main'>
+            <Navigation />
+            <div className='inner-container'>
                 <Routes>
                     <Route path="/" element={<Home />} ></Route>
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/register" element={<Register />} ></Route>
                     <Route path="/create-podcast" element={<CreatePodcast />} ></Route>
                 </Routes>
-            </AuthProvider>
-        </>
+                </div>
+            </div>
+        </AuthProvider>
     )
 }
 

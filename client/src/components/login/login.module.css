@@ -21,6 +21,7 @@
 .heading {
     display: flex;
     justify-content: center;
+    margin-bottom: 15px;
 }
 
 .form-fields {
@@ -35,4 +36,5 @@
 .underline-pointer {
     cursor: pointer;
     text-decoration: underline;
+    margin-left: 2px;
 }

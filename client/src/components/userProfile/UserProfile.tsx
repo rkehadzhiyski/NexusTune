@@ -11,7 +11,7 @@ const UserProfile = () => {
     return (
         <div className={styles['profile-page']}>
             <div className={styles['profile-info-container']}>
-                <img className={styles['profile-picture']} src='/profile-image.jpg' alt='profile-image' />
+                <img className={styles['profile-picture']} src='\user-image-default.webp' alt='profile-image' />
                 <p className={styles['username']}>{user.username}</p>
                 <div className={styles['profile-description']}>
                     <p>

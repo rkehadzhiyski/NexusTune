@@ -14,7 +14,8 @@ const Navigation = () => {
         isAuthenticated,
         user,
         logoutHandler,
-    } = useContext(AuthContext)
+    } = useContext(AuthContext);
+    
     return (
         <Navbar expand="lg" className="bg-body-tertiary">
             <Container>

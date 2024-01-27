@@ -1,0 +1,23 @@
+.profile-page{
+
+}
+
+.profile-info-container{
+    border: 1px solid black;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-picture{
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+}
+
+.username{
+    margin-top: 15px;
+}
+

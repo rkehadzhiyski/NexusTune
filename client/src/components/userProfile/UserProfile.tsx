@@ -1,8 +1,20 @@
+import styles from './userProfile.module.css';
+
 const UserProfile = () => {
     return (
-        <>
-        <h1>Prrofile Page</h1>
-        </>
+        <div className={styles['profile-page']}>
+            <div className={styles['profile-info-container']}>
+                <img className={styles['profile-picture']} src='/profile-image.jpg' alt='profile-image' />
+                <p className={styles['username']}>Username</p>
+                <div className={styles['profile-description']}>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit sint alias perferendis quis
+                        totam maxime hic voluptates
+                        sunt dolorum dolore?
+                    </p>
+                </div>
+            </div>
+        </div>
     );
 }
 

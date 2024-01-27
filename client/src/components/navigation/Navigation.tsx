@@ -28,7 +28,7 @@ const Navigation = () => {
                             <div className={styles['profile-info-container']}>
                                 <img className={styles['profile-image']} src="/profile-image.jpg" alt="profile-image" />
                                 <NavDropdown title={user.username} id="nav-dropdown">
-                                    <NavDropdown.Item as={Link} to="/my-profile">My Profile</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/user-profile">My Profile</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/create-podcast">Add Podcast</NavDropdown.Item> 
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item as={Link} onClick={logoutHandler} to="/">Logout</NavDropdown.Item>

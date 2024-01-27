@@ -94,6 +94,7 @@ const CreatePodcast = () => {
                     </FloatingLabel>
                     <Form.Text className="text-muted">
                     </Form.Text>
+                    <Form.Label className={styles['image-label']}>Podcast image</Form.Label>
                     <Form.Group controlId="formFile" className="mb-3">
                         <Form.Control
                             type="file"
@@ -116,7 +117,7 @@ const CreatePodcast = () => {
                     </FloatingLabel>
                     <div>
                         <Button className={styles['create-podcast-button']} variant="primary" type="submit">
-                            Upload
+                            Create
                         </Button>
                     </div>
                 </Form>

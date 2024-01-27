@@ -7,7 +7,6 @@
     margin-left: 200px;
 }
 
-
 .create-podcast-form-container{
     border: 1px solid white;
     border-radius: 8px;
@@ -46,3 +45,6 @@
     margin: 50px 0;
 }
 
+.image-label {
+    color: black;
+}

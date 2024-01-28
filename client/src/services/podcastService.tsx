@@ -18,3 +18,8 @@ export const getAll = async () => {
     const result = await axios.get(baseUrl);
     return result;
 }
+
+export const getAllOfOwner = async(ownerId:string) => {
+    const result = await axios.get(`${baseUrl}/owner/${ownerId}`);
+    return result;
+}

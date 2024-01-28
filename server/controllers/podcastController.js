@@ -2,6 +2,18 @@ const router = require('express').Router();
 
 const podcastManager = require('../managers/podcastManager');
 
+router.get('/owner/:ownerId', async (req, res) => {
+    const owner = req.params.ownerId;
+
+    try {
+        const ownerPodcasts = await podcastManager.getAllOfOwner(owner);
+        res.json(ownerPodcasts);
+    } catch (error) {
+        console.error('Error fetching owner podcasts:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 router.get('/', async (req, res) => {
     const podcasts = await podcastManager.getAll();
 

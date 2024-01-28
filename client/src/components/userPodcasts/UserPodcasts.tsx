@@ -10,7 +10,11 @@ interface Podcast {
     image: string
 }
 
-const UserPodcasts = (userId: string) => {
+interface Props {
+    userId: string;
+}
+
+const UserPodcasts: React.FC<Props>= ({ userId }) => {
     const [podcasts, setPodcasts] = useState<Podcast[]>([]);
 
     useEffect(() => {

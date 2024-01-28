@@ -2,12 +2,13 @@ import { useContext } from 'react';
 import AuthContext from '../../contexts/authContext';
 
 import styles from './userProfile.module.css';
+import UserPodcasts from '../userPodcasts/UserPodcasts';
 
 const UserProfile = () => {
     const {
         user
     } = useContext(AuthContext);
-
+    
     return (
         <div className={styles['profile-page']}>
             <div className={styles['profile-info-container']}>
@@ -21,6 +22,7 @@ const UserProfile = () => {
                     </p>
                 </div>
             </div>
+            <UserPodcasts userId={user.userId}/>
         </div>
     );
 }

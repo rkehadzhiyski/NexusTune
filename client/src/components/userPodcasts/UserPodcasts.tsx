@@ -25,7 +25,7 @@ const UserPodcasts: React.FC<Props>= ({ userId }) => {
             .catch(error => {
                 console.error("Error fetching podcasts:", error);
             });
-    }, [podcasts, userId]);
+    }, [userId]);
 
     return (
         <div style={{ display: 'flex', gap: '20px' }}>

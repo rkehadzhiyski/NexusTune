@@ -6,7 +6,7 @@ exports.getOne = (podcastId) => Podcast.findById(podcastId);
 
 exports.getAll = () => Podcast.find();
 
-exports.getAllOfOwner = (ownerId) => Podcast.find(ownerId);
+exports.getAllOfOwner = (ownerId) => Podcast.find({ ownerId: ownerId });
 
 exports.update = (podcastId) => Podcast.findByIdAndUpdate(podcastId);
 

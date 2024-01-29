@@ -36,7 +36,7 @@ const UserProfile = () => {
             <EditProfile
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                id={user.userId}
+                user={user}
             />
         </div>
     );

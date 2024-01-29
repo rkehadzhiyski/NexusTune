@@ -23,8 +23,3 @@ export const getAllOfOwner = async(ownerId:string) => {
     const result = await axios.get(`${baseUrl}/owner/${ownerId}`);
     return result;
 }
-
-export const getOne = async(ownerId:string) => {
-    const result = await axios.get(`${baseUrl}/owner/${ownerId}`);
-    return result;
-}

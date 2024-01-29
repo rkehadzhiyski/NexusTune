@@ -31,3 +31,8 @@ export const editUser = async (userId: string, updatedData: UserUpdate) => {
     const result = await axios.post(`${baseUrl}/edit/${userId}`, updatedData);
     return result;
 }
+
+export const getOne = async(userId:string) => {
+    const result = await axios.get(`${baseUrl}/${userId}`);
+    return result;
+}

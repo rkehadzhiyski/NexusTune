@@ -12,8 +12,8 @@ interface UserData {
     email: string;
     username: string;
     userId: string;
-    description: string
-    image: string;
+    description?: string;
+    image?: string; 
     accessToken?: string;
 }
 
@@ -33,8 +33,6 @@ const initialAuthValues: AuthValues = {
         email: '',
         username: '',
         userId: '',
-        description: '',
-        image: '',
         accessToken: '',
     },
     isAuthenticated: false,
@@ -49,8 +47,6 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
     const [auth, setAuth] = usePersistedState<UserData>('auth', {
         email: '',
         username: '',
-        description: '',
-        image: '',
         userId: ''
     });
 
@@ -80,8 +76,6 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         setAuth({
             email: '',
             username: '',
-            description: '',
-            image: '',
             userId: ''
         });
 
@@ -96,8 +90,6 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
             email: auth.email || '',
             username: auth.username || '',
             userId: auth.userId || '',
-            description: auth.description || '',
-            image: auth.image || '',
             accessToken: auth.accessToken || '',
         },
         isAuthenticated: !!auth.accessToken,

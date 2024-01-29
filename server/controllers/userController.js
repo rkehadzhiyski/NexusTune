@@ -49,12 +49,12 @@ router.post('/edit/:userId', async (req, res) => {
     }
 });
 
-router.get('/:userId', async (req,res) => {
+router.get('/user/:userId', async (req,res) => {
     const userId = req.params.userId;
 
     try {
         const result = await userManager.getOne(userId);
-        return result;
+        res.json(result);
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',

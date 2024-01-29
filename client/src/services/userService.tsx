@@ -33,6 +33,6 @@ export const editUser = async (userId: string, updatedData: UserUpdate) => {
 }
 
 export const getOne = async(userId:string) => {
-    const result = await axios.get(`${baseUrl}/${userId}`);
+    const result = await axios.get(`${baseUrl}/user/${userId}`);
     return result;
 }

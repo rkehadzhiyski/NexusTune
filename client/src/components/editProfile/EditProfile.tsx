@@ -15,8 +15,10 @@ interface Props {
     onHide: () => void,
     show: boolean,
     user: {
-        userId: string;
-        description?: string | undefined;
+        _id: string;
+        username: string;
+        description: string | undefined; 
+        image: string | undefined;
     }
 }
 
@@ -62,13 +64,13 @@ const EditProfile: React.FC<Props> = (props) => {
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
 
-        const response = await uploadFile(props.user.userId, podcastImage);
+        const response = await uploadFile(props.user._id, podcastImage);
         if (response && response.url) {
             const podcastData: EditUserData = {
                 image: response.url,
                 description: data.description,
             };
-            userService.editUser(props.user.userId, podcastData);
+            userService.editUser(props.user._id, podcastData);
             props.onHide();
         } else {
             console.error("Upload failed!");

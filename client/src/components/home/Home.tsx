@@ -21,7 +21,7 @@ const Home = () => {
             .catch(error => {
                 console.error("Error fetching podcasts:", error);
             });
-    }, [podcasts]);
+    }, []);
 
     return (
         <>

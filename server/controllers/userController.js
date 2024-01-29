@@ -49,4 +49,18 @@ router.post('/edit/:userId', async (req, res) => {
     }
 });
 
+router.get('/:userId', async (req,res) => {
+    const userId = req.params.userId;
+
+    try {
+        const result = await userManager.getOne(userId);
+        return result;
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error:',
+            message: error.message,
+        });
+    }
+});
+
 module.exports = router;

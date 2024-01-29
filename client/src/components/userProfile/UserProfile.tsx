@@ -1,16 +1,36 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contexts/authContext';
+
+import * as podcastService from '../../services/podcastService';
 
 import styles from './userProfile.module.css';
 import UserPodcasts from '../userPodcasts/UserPodcasts';
 import Button from 'react-bootstrap/Button';
 import EditProfile from '../editProfile/EditProfile';
 
+interface Podcast {
+    _id: number;
+    name: string;
+    description: string;
+    image: string
+}
+
 const UserProfile = () => {
     const [modalShow, setModalShow] = useState(false);
+    const [podcast, setPodcast] = useState<Podcast[]>([]);
     const {
         user
     } = useContext(AuthContext);
+
+    useEffect(() => {
+        podcastService.getOne(user.userId)
+            .then(response => {
+                setPodcast(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching podcast:", error);
+            });
+    },[podcast, user]);
 
     return (
         <div className={styles['profile-page']}>

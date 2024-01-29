@@ -16,7 +16,7 @@ interface Props {
     show: boolean,
     user: {
         userId: string;
-        description: string;
+        description?: string | undefined;
     }
 }
 
@@ -55,7 +55,7 @@ const EditProfile: React.FC<Props> = (props) => {
     });
 
     useEffect(() => {
-        if (props) {
+        if (props.user.description) {
             setValue('description', props.user.description);
         }
     }, [props, setValue]);

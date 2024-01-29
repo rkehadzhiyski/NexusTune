@@ -13,6 +13,7 @@ interface UserData {
     username: string;
     userId: string;
     description: string
+    image: string;
     accessToken?: string;
 }
 
@@ -33,6 +34,7 @@ const initialAuthValues: AuthValues = {
         username: '',
         userId: '',
         description: '',
+        image: '',
         accessToken: '',
     },
     isAuthenticated: false,
@@ -48,6 +50,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         email: '',
         username: '',
         description: '',
+        image: '',
         userId: ''
     });
 
@@ -78,6 +81,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
             email: '',
             username: '',
             description: '',
+            image: '',
             userId: ''
         });
 
@@ -93,6 +97,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
             username: auth.username || '',
             userId: auth.userId || '',
             description: auth.description || '',
+            image: auth.image || '',
             accessToken: auth.accessToken || '',
         },
         isAuthenticated: !!auth.accessToken,

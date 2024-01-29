@@ -49,7 +49,7 @@ const schema = yup.object().shape({
 });
 
 const EditProfile: React.FC<Props> = (props) => {
-    const [podcastImage, setPodcastImage] = useState<File>();
+    const [podcastImage, setPodcastImage] = useState<File>();    
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });

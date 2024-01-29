@@ -61,7 +61,7 @@ const UserProfile = () => {
             <EditProfile
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                fetchData={() => fetchData()}
+                // fetchData={() => fetchData()}
                 user={userData}
             />
         </div>

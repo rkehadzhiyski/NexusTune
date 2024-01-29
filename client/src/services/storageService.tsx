@@ -5,18 +5,18 @@ interface UploadFileResponse {
     url: string;
 }
 
-export const uploadFile = async (audioUpload: File | undefined): Promise<UploadFileResponse | undefined> => {
-    if (audioUpload == null) return;
+export const uploadFile = async (userId:string,fileUpload: File | undefined): Promise<UploadFileResponse | undefined> => {
+    if (fileUpload == null) return;
 
-    const audioRef = ref(storage, `audio/${audioUpload.name}`);
+    const audioRef = ref(storage, `${userId}/${fileUpload.name}`);
 
     try {
-        await uploadBytes(audioRef, audioUpload);
+        await uploadBytes(audioRef, fileUpload);
 
         const url = await getDownloadURL(audioRef);
         
         return { url };
     } catch (error) {
-        console.error("Error uploading or fetching audio:", error);
+        console.error("Error uploading or fetching file:", error);
     }
 };

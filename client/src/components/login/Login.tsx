@@ -67,7 +67,7 @@ const Login: FC = () => {
                         </Button>
                     </div>
                     <Form.Text className="text-muted">
-                        Already a registered user?
+                        Not a registered user?
                         <span className={styles['underline-pointer']} onClick={navigateRegister}>
                             Register now
                         </span>.

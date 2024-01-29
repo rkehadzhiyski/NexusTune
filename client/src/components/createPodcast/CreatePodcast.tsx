@@ -37,9 +37,9 @@ const schema = yup.object().shape({
             if (!value) {
                 return false;
             }
-            
+
             const file = isFileList(value) ? value[0] : value;
-            
+
             return file && supportedImageFormats.includes((file as File).type);
         }),
     description: yup.string().required('Description is required'),
@@ -57,7 +57,7 @@ const CreatePodcast = () => {
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
 
-        const response = await uploadFile(podcastImage);
+        const response = await uploadFile(user.userId, podcastImage);
         if (response && response.url) {
             const podcastData: CreatePodcastData = {
                 name: data.name,

@@ -8,11 +8,11 @@ const UserProfile = () => {
     const {
         user
     } = useContext(AuthContext);
-    
+
     return (
         <div className={styles['profile-page']}>
             <div className={styles['profile-info-container']}>
-                <img className={styles['profile-picture']} src='\user-image-default.webp' alt='profile-image'/>
+                <img className={styles['profile-picture']} src='\user-image-default.webp' alt='profile-image' />
                 <p className={styles['username']}>{user.username}</p>
                 <div className={styles['profile-description']}>
                     <p>
@@ -22,7 +22,10 @@ const UserProfile = () => {
                     </p>
                 </div>
             </div>
-            <UserPodcasts userId={user.userId}/>
+            <div className={styles['user-podcasts']}>
+                <h2 className={styles['podcasts-heading']}>My Podcasts</h2>
+                <UserPodcasts userId={user.userId} />
+            </div>
         </div>
     );
 }

@@ -1,0 +1,11 @@
+.image-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.image {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}

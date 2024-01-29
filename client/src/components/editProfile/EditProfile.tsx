@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import * as userService from '../../services/userService';
+import styles from './editProfile.module.css';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,7 +14,7 @@ import { uploadFile } from '../../services/storageService';
 
 interface Props {
     onHide: () => void,
-    fetchData: () => void,
+    // fetchData: () => void,
     show: boolean,
     user: {
         _id: string;
@@ -38,7 +39,7 @@ const supportedImageFormats = ['image/jpeg', 'image/png', 'image/gif'];
 const isFileList = (value: object): value is FileList => value && value instanceof FileList;
 
 const schema = yup.object().shape({
-    profileImage: yup.mixed().oneOf([yup.string(), yup.array().of(yup.mixed())])
+    profileImage: yup.mixed()
         .test('type', 'Unsupported file format', function (value) {
             if (Array.isArray(value) && value.length > 0) {
                 const file = isFileList(value) ? value[0] : value;
@@ -51,7 +52,7 @@ const schema = yup.object().shape({
 });
 
 const EditProfile: React.FC<Props> = (props) => {
-    const [imageFile, setImageFile] = useState<File>();
+    // const [imageFile, setImageFile] = useState<File>();
     const [userImage, setUserImage] = useState<string>();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -78,21 +79,21 @@ const EditProfile: React.FC<Props> = (props) => {
 
         userService.editUser(props.user._id, userData);
         props.onHide();
-        props.fetchData();
+        return userData;
     };
 
     const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            setImageFile(event.target.files[0]);
-
-            if (imageFile) {
-                const response = await uploadFile(props.user._id, imageFile);
+            
+            try {
+                const response = await uploadFile(props.user._id, event.target.files[0]);                
                 if (response && response.url) {
                     setUserImage(response.url);
                 } else {
                     console.error("Upload failed!");
-                    return;
                 }
+            } catch (error) {
+                console.error("Error uploading file:", error);
             }
         }
     };
@@ -110,7 +111,9 @@ const EditProfile: React.FC<Props> = (props) => {
                 </Modal.Title>
             </Modal.Header>
             {userImage &&
-                <img src={userImage} alt="profile-photo-preview" />
+            <div className={styles['image-container']}>
+                <img className={styles['image']} src={userImage} alt="profile-photo-preview" />
+            </div>
             }
             <Modal.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
@@ -119,7 +122,7 @@ const EditProfile: React.FC<Props> = (props) => {
                         <Form.Control
                             type="file"
                             {...register('profileImage')}
-                            onChange={handleFileChange}
+                            onInput={handleFileChange}
                             multiple={false}
                             placeholder="Profile Image" />
                         <Form.Text className="text-danger">{errors['profileImage']?.message}</Form.Text>

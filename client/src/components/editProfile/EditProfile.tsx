@@ -25,7 +25,7 @@ interface Props {
 
 interface FormData {
     description?: string;
-    profileImage?: string;
+    image?: string;
 }
 
 interface UserUpdate {
@@ -38,8 +38,7 @@ const supportedImageFormats = ['image/jpeg', 'image/png', 'image/gif'];
 const isFileList = (value: object): value is FileList => value && value instanceof FileList;
 
 const schema = yup.object().shape({
-    profileImage: yup.mixed().oneOf([yup.string(),yup.array().of(yup.mixed())])
-        .notRequired()
+    profileImage: yup.mixed().oneOf([yup.string(), yup.array().of(yup.mixed())])
         .test('type', 'Unsupported file format', function (value) {
             if (Array.isArray(value) && value.length > 0) {
                 const file = isFileList(value) ? value[0] : value;
@@ -48,11 +47,12 @@ const schema = yup.object().shape({
             }
             return true;
         }),
-    description: yup.string().notRequired(),
+    description: yup.string(),
 });
 
 const EditProfile: React.FC<Props> = (props) => {
-    const [podcastImage, setPodcastImage] = useState<File>();
+    const [imageFile, setImageFile] = useState<File>();
+    const [userImage, setUserImage] = useState<string>();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
@@ -61,40 +61,39 @@ const EditProfile: React.FC<Props> = (props) => {
         if (props.user.description) {
             setValue('description', props.user.description);
         }
+
     }, [props, setValue]);
 
-    const onSubmit = async (data: { profileImage?: string | Array<string> ; description?: string; }) => {
-        const image = props.user.image; 
-        const description = props.user.description; 
+    const onSubmit = async (data: FormData) => {
+        const description = props.user.description;
 
-        const podcastData: UserUpdate = {
-            image: image,
+        const userData: UserUpdate = {
+            image: userImage,
             description: description,
         };
-    
-        if (podcastImage) {
-            const response = await uploadFile(props.user._id, podcastImage);
-    
-            if (response && response.url) {
-                podcastData.image = response.url;
-            } else {
-                console.error("Upload failed!");
-                return; 
-            }
-        }
-    
+
         if (data.description) {
-            podcastData.description = data.description;
-        }  
-            
-        userService.editUser(props.user._id, podcastData);
+            userData.description = data.description;
+        }
+
+        userService.editUser(props.user._id, userData);
         props.onHide();
         props.fetchData();
     };
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            setPodcastImage(event.target.files[0]);
+            setImageFile(event.target.files[0]);
+
+            if (imageFile) {
+                const response = await uploadFile(props.user._id, imageFile);
+                if (response && response.url) {
+                    setUserImage(response.url);
+                } else {
+                    console.error("Upload failed!");
+                    return;
+                }
+            }
         }
     };
 
@@ -110,6 +109,9 @@ const EditProfile: React.FC<Props> = (props) => {
                     Edit Profile
                 </Modal.Title>
             </Modal.Header>
+            {userImage &&
+                <img src={userImage} alt="profile-photo-preview" />
+            }
             <Modal.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                     <Form.Label >Podcast image</Form.Label>

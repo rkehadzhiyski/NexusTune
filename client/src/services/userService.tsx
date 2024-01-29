@@ -8,8 +8,8 @@ interface UserCredentials {
 }
 
 interface UserUpdate {
-    image: string;
-    description: string;
+    image?: string;
+    description?: string;
 }
 
 export const login = async (credentials: UserCredentials) => {

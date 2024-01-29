@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contexts/authContext';
 
 import * as userService from '../../services/userService';
@@ -27,15 +27,19 @@ const UserProfile = () => {
         user,
     } = useContext(AuthContext);
 
-    useEffect(() => {
-        userService.getOne(user.userId)
-            .then(response => {
-                setUserData(response.data);
-            })
-            .catch(error => {
-                console.error("Error fetching user:", error);
-            });
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await userService.getOne(user.userId);
+    
+            setUserData(response.data);
+        } catch (error) {
+            console.error("Error fetching podcast:", error);
+        }
     }, [user.userId]);
+
+    useEffect(() => {     
+        fetchData();
+    }, [fetchData]);
 
     return (
         <div className={styles['profile-page']}>
@@ -57,6 +61,7 @@ const UserProfile = () => {
             <EditProfile
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                fetchData={() => fetchData()}
                 user={userData}
             />
         </div>

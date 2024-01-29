@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
@@ -13,23 +13,24 @@ import { uploadFile } from '../../services/storageService';
 
 interface Props {
     onHide: () => void,
+    fetchData: () => void,
     show: boolean,
     user: {
         _id: string;
         username: string;
-        description: string | undefined; 
+        description: string | undefined;
         image: string | undefined;
     }
 }
 
 interface FormData {
-    description: string;
-    profileImage: unknown;
+    description?: string;
+    profileImage?: string;
 }
 
-interface EditUserData {
-    image: string;
-    description: string;
+interface UserUpdate {
+    image?: string;
+    description?: string;
 }
 
 const supportedImageFormats = ['image/jpeg', 'image/png', 'image/gif'];
@@ -37,21 +38,21 @@ const supportedImageFormats = ['image/jpeg', 'image/png', 'image/gif'];
 const isFileList = (value: object): value is FileList => value && value instanceof FileList;
 
 const schema = yup.object().shape({
-    profileImage: yup.mixed().required('Image is required')
+    profileImage: yup.mixed().oneOf([yup.string(),yup.array().of(yup.mixed())])
+        .notRequired()
         .test('type', 'Unsupported file format', function (value) {
-            if (!value) {
-                return false;
+            if (Array.isArray(value) && value.length > 0) {
+                const file = isFileList(value) ? value[0] : value;
+
+                return file && supportedImageFormats.includes((file as File).type);
             }
-
-            const file = isFileList(value) ? value[0] : value;
-
-            return file && supportedImageFormats.includes((file as File).type);
+            return true;
         }),
-    description: yup.string().required('Description is required'),
+    description: yup.string().notRequired(),
 });
 
 const EditProfile: React.FC<Props> = (props) => {
-    const [podcastImage, setPodcastImage] = useState<File>();    
+    const [podcastImage, setPodcastImage] = useState<File>();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
@@ -62,19 +63,33 @@ const EditProfile: React.FC<Props> = (props) => {
         }
     }, [props, setValue]);
 
-    const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const onSubmit = async (data: { profileImage?: string | Array<string> ; description?: string; }) => {
+        const image = props.user.image; 
+        const description = props.user.description; 
 
-        const response = await uploadFile(props.user._id, podcastImage);
-        if (response && response.url) {
-            const podcastData: EditUserData = {
-                image: response.url,
-                description: data.description,
-            };
-            userService.editUser(props.user._id, podcastData);
-            props.onHide();
-        } else {
-            console.error("Upload failed!");
+        const podcastData: UserUpdate = {
+            image: image,
+            description: description,
+        };
+    
+        if (podcastImage) {
+            const response = await uploadFile(props.user._id, podcastImage);
+    
+            if (response && response.url) {
+                podcastData.image = response.url;
+            } else {
+                console.error("Upload failed!");
+                return; 
+            }
         }
+    
+        if (data.description) {
+            podcastData.description = data.description;
+        }  
+            
+        userService.editUser(props.user._id, podcastData);
+        props.onHide();
+        props.fetchData();
     };
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {

@@ -28,7 +28,6 @@ router.post('/login', async (req, res) => {
             message: 'There was an error:',
             message: error.message,
         });
-
     }
 });
 

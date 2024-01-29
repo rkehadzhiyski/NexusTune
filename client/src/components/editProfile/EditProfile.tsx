@@ -64,11 +64,11 @@ const EditProfile: React.FC<Props> = (props) => {
 
         const response = await uploadFile(props.user.userId, podcastImage);
         if (response && response.url) {
-            const podcastData: EditUserData = {                
+            const podcastData: EditUserData = {
                 image: response.url,
                 description: data.description,
             };
-            userService.editUser(podcastData);
+            userService.editUser(props.user.userId, podcastData);
             props.onHide();
         } else {
             console.error("Upload failed!");

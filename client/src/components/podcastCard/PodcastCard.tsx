@@ -1,5 +1,6 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+
+import styles from './podcastCard.module.css';
 
 interface Podcast {
   name: string;
@@ -13,14 +14,13 @@ interface PodcastCardProps {
 
 const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={podcast.image} />
+    <Card className={styles['card-container']}>
+      <Card.Img className={styles['card-image']} variant="top" src={podcast.image} />
       <Card.Body>
         <Card.Title>{podcast.name}</Card.Title>
         <Card.Text>
           {podcast.description}
         </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
       </Card.Body>
     </Card>
   );

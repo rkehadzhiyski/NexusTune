@@ -25,7 +25,7 @@ const Home = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', gap: '20px',flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex',justifyContent: 'center' ,gap: '20px',flexWrap: 'wrap' }}>
                 {podcasts.map((podcast) => (
                     <PodcastCard key={podcast._id} podcast={podcast} />
                 ))}

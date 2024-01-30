@@ -37,7 +37,7 @@ const UserPodcasts: React.FC<Props> = ({ userId }) => {
     }, [userId]);
 
     return (
-        <div style={{ display: 'flex', gap: '20px' }}>
+        <div style={{ display: 'flex',justifyContent: 'center', flexWrap: 'wrap', gap: '20px' }}>
             {podcasts.length === 0 ? (
                 <div className={styles['no-podcast-info']}>
                     <p>You have no podcasts yet.</p>

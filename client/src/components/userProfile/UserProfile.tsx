@@ -30,16 +30,15 @@ const UserProfile = () => {
     const fetchData = useCallback(async () => {
         try {
             const response = await userService.getOne(user.userId);
-    
             setUserData(response.data);
         } catch (error) {
             console.error("Error fetching podcast:", error);
         }
     }, [user.userId]);
 
-    useEffect(() => {     
+    useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, [user.userId, fetchData]);
 
     return (
         <div className={styles['profile-page']}>
@@ -57,11 +56,10 @@ const UserProfile = () => {
                 <h2 className={styles['podcasts-heading']}>My Podcasts</h2>
                 <UserPodcasts userId={user.userId} />
             </div>
-
             <EditProfile
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                // fetchData={() => fetchData()}
+                fetchData={() => fetchData()}
                 user={userData}
             />
         </div>

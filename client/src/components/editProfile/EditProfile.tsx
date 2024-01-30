@@ -14,7 +14,7 @@ import { uploadFile } from '../../services/storageService';
 
 interface Props {
     onHide: () => void,
-    // fetchData: () => void,
+    fetchData: () => void,
     show: boolean,
     user: {
         _id: string;
@@ -52,7 +52,6 @@ const schema = yup.object().shape({
 });
 
 const EditProfile: React.FC<Props> = (props) => {
-    // const [imageFile, setImageFile] = useState<File>();
     const [userImage, setUserImage] = useState<string>();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -78,8 +77,8 @@ const EditProfile: React.FC<Props> = (props) => {
         }
 
         userService.editUser(props.user._id, userData);
+        props.fetchData();
         props.onHide();
-        return userData;
     };
 
     const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +99,8 @@ const EditProfile: React.FC<Props> = (props) => {
 
     return (
         <Modal
-            {...props}
+            show={props.show}
+            onHide={props.onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered

@@ -12,8 +12,6 @@ interface UserData {
     email: string;
     username: string;
     userId: string;
-    description?: string;
-    image?: string; 
     accessToken?: string;
 }
 

@@ -8,12 +8,12 @@ interface UploadFileResponse {
 export const uploadFile = async (userId:string,fileUpload: File | undefined): Promise<UploadFileResponse | undefined> => {
     if (fileUpload == null) return ;
     
-    const audioRef = ref(storage, `${userId}/${fileUpload.name}`);
+    const fileRef = ref(storage, `${userId}/${fileUpload.name}`);
 
     try {
-        await uploadBytes(audioRef, fileUpload);
+        await uploadBytes(fileRef, fileUpload);
 
-        const url = await getDownloadURL(audioRef);
+        const url = await getDownloadURL(fileRef);
         
         return { url };
     } catch (error) {

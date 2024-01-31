@@ -56,23 +56,26 @@ const CreatePodcast = () => {
     } = useContext(AuthContext);
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
-        const response = await uploadFile(user.userId, podcastImage);
+        try {
+            const response = await uploadFile(user.userId, podcastImage);
 
-        if (response && response.url) {
-            const podcastData: CreatePodcastData = {
-                name: data.name,
-                image: response.url,
-                description: data.description,
-                createdAt: new Date().toISOString(),
-                ownerId: user.userId,
-            };
+            if (response && response.url) {
+                const podcastData: CreatePodcastData = {
+                    name: data.name,
+                    image: response.url,
+                    description: data.description,
+                    createdAt: new Date().toISOString(),
+                    ownerId: user.userId,
+                };
 
-            const podcastId = await podcastService.create(podcastData);
-            userService.editUser(user.userId, { uploadedPodcasts: podcastId.data });
-        } else {
-            console.error("Upload failed!");
+                const podcastId = await podcastService.create(podcastData);
+                userService.editUser(user.userId, { uploadedPodcasts: podcastId.data });
+            }
+
+        } catch (error) {
+            console.error('Error uploading files:', error);
         }
-    };
+    }
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {

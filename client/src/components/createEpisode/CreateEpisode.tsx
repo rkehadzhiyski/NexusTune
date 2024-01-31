@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import * as userService from '../../services/userService';
+import * as storageService from '../../services/storageService';
 import styles from './createEpisode.module.css';
 
 import { Button, FloatingLabel, Form } from "react-bootstrap";
@@ -25,6 +26,16 @@ interface FormData {
     episodeAudio: unknown;
     selectedPodcast: string;
     description: string;
+}
+
+interface EpisodeData {
+    name: string;
+    image: string;
+    audio: string;
+    podcastId: string;
+    description: string;
+    createdAt: string;
+    ownerId: string;
 }
 
 const supportedImageFormats = ['image/jpeg', 'image/png', 'image/gif'];
@@ -58,6 +69,8 @@ const schema = yup.object().shape({
 
 const CreateEpisode = () => {
     const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+    const [episodeImage, setEpisodeImage] = useState<File>();
+    const [episodeAudio, setEpisodeAudio] = useState<File>();
     const {
         user,
     } = useContext(AuthContext);
@@ -69,7 +82,6 @@ const CreateEpisode = () => {
     useEffect(() => {
         userService.getUploadedPodcast(user.userId)
             .then(response => {
-                console.log(response.data);
                 setPodcasts(response.data);
                 setIsLoading(false);
             })
@@ -78,9 +90,40 @@ const CreateEpisode = () => {
             });
     }, [user.userId]);
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-        console.log(data)
+    const onSubmit: SubmitHandler<FormData> = async (data) => {
+        try {
+            const imageResponse = await storageService.uploadFile(user.userId, episodeImage);
+            const audioResponse = await storageService.uploadFile(user.userId, episodeAudio);
+
+            if (imageResponse?.url && audioResponse?.url) {
+                const episodeData: EpisodeData = {
+                    name: data.name,
+                    image: imageResponse.url,
+                    audio: audioResponse.url,
+                    description: data.description,
+                    createdAt: new Date().toISOString(),
+                    podcastId: data.selectedPodcast,
+                    ownerId: user.userId,
+                }
+                console.log(episodeData);
+            }
+
+        } catch (error) {
+            console.error('Error uploading files:', error);
+        }
     }
+
+    const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setEpisodeImage(event.target.files[0]);
+        }
+    };
+
+    const handleAudioChange = (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            setEpisodeAudio(event.target.files[0]);
+        }
+    };
 
     return (
         <div className={styles['spinner-container']}>
@@ -127,7 +170,7 @@ const CreateEpisode = () => {
                                                 <Form.Control
                                                     type="file"
                                                     {...register('episodeImage')}
-                                                    // onInput={handleFileChange}
+                                                    onInput={handleImageChange}
                                                     multiple={false}
                                                     placeholder="episodeImage" />
                                                 <Form.Text className="text-danger">{errors['episodeImage']?.message}</Form.Text>
@@ -139,7 +182,7 @@ const CreateEpisode = () => {
                                                 <Form.Control
                                                     type="file"
                                                     {...register('episodeAudio')}
-                                                    // onInput={handleFileChange}
+                                                    onInput={handleAudioChange}
                                                     multiple={false}
                                                     placeholder="episodeAudio" />
                                                 <Form.Text className="text-danger">{errors['episodeAudio']?.message}</Form.Text>

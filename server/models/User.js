@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema({
     description: {
         type: String,
         required: false,
-    }
+    },
+    uploadedPodcasts: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Podcast'
+    }]
 });
 
 userSchema.pre('save', async function () {
@@ -29,6 +33,10 @@ userSchema.pre('save', async function () {
 
     this.password = hash;
 });
+
+userSchema.methods.getUploadedPodcastIds = function() {
+    return this.uploadedPodcasts.map(podcast => podcast.toString());
+};
 
 const User = mongoose.model('User', userSchema);
 

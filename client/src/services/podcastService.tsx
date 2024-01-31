@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const baseUrl = 'http://localhost:8888/podcasts';
 
@@ -11,7 +11,7 @@ interface uploadData {
 
 export const create = async (data: uploadData) => {
     const result = await axios.post(baseUrl, data);
-    return result
+    return result;
 };
 
 export const getAll = async () => {

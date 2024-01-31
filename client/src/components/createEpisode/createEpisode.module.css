@@ -16,6 +16,11 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.spinner-container{
+    display: flex;
+    justify-content: center;
+}
+
 .form {
     width: 100%;
     padding: 30px 60px;

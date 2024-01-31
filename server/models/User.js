@@ -34,10 +34,6 @@ userSchema.pre('save', async function () {
     this.password = hash;
 });
 
-userSchema.methods.getUploadedPodcastIds = function() {
-    return this.uploadedPodcasts.map(podcast => podcast.toString());
-};
-
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

@@ -10,6 +10,7 @@ interface UserCredentials {
 interface UserUpdate {
     image?: string;
     description?: string;
+    uploadedPodcasts? : unknown;
 }
 
 export const login = async (credentials: UserCredentials) => {

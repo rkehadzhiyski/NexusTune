@@ -5,6 +5,7 @@ import * as yup from 'yup';
 
 import styles from '../createPodcast/createPodcast.module.css';
 import * as podcast from '../../services/podcastService';
+import * as userService from '../../services/userService';
 
 import AuthContext from '../../contexts/authContext';
 import Form from 'react-bootstrap/Form';
@@ -66,7 +67,8 @@ const CreatePodcast = () => {
                 createdAt: new Date().toISOString(),
                 ownerId: user.userId,
             };
-            podcast.create(podcastData);
+            const podcastId = await podcast.create(podcastData);
+            userService.editUser(user.userId,  {uploadedPodcasts: podcastId.data} );
         } else {
             console.error("Upload failed!");
         }

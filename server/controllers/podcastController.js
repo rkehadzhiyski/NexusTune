@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const podcast = await podcastManager.create(req.body);
-        res.status(204).end();
+        res.json(ownerPodcasts._id);
     } catch (error) {
         console.log(error)
         res.status(400).json({

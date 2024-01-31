@@ -1,9 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, FloatingLabel, Form } from "react-bootstrap";
-import AuthContext from '../../contexts/authContext';
+import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 import * as userService from '../../services/userService';
 import styles from './createEpisode.module.css';
+
+import { Button, FloatingLabel, Form } from "react-bootstrap";
+import AuthContext from '../../contexts/authContext';
 
 interface PodcastData {
     name: string;
@@ -14,11 +18,53 @@ interface PodcastData {
     _id: string;
 }
 
+interface FormData {
+    name: string;
+    episodeImage: unknown;
+    episodeAudio: unknown;
+    selectedPodcast: string;
+    description: string;
+}
+
+const supportedImageFormats = ['image/jpeg', 'image/png', 'image/gif'];
+const supportedAudioFormats = ['audio/mp3', 'audio/mpeg', 'audio/wav', 'audio/aac'];
+
+const isFileList = (value: object): value is FileList => value && value instanceof FileList;
+
+const schema = yup.object().shape({
+    name: yup.string().required('Name is required'),
+    episodeImage: yup.mixed().required('Image is required')
+        .test('type', 'Unsupported file format', function (value) {
+            if (!value) {
+                return false;
+            }
+            const file = isFileList(value) ? value[0] : value;
+            console.log('File type:', file);
+
+            return file && supportedImageFormats.includes((file as File).type);
+        }),
+    episodeAudio: yup.mixed().required('audio is required')
+        .test('type', 'Unsupported file format', function (value) {
+            if (!value) {
+                return false;
+            }
+            const file = isFileList(value) ? value[0] : value;
+            console.log('File type:', file);
+
+            return file && supportedAudioFormats.includes((file as File).type);
+        }),
+    selectedPodcast: yup.string().required('Please select a podcast'),
+    description: yup.string().required('Description is required'),
+});
+
 const CreateEpisode = () => {
+    const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
     const {
         user,
     } = useContext(AuthContext);
-    const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
 
     useEffect(() => {
         userService.getUploadedPodcast(user.userId)
@@ -30,6 +76,10 @@ const CreateEpisode = () => {
                 console.error('Error fetching podcasts:', error);
             });
     }, [user.userId]);
+
+    const onSubmit: SubmitHandler<FormData> = (data) => {
+        console.log(data)
+    }
 
     return (
         <>
@@ -50,46 +100,56 @@ const CreateEpisode = () => {
                     </div>
 
                     <div className={styles['create-podcast-form-container']}>
-                        <Form className={styles['form']}>
+                        <Form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
                             <h1 className={styles['heading']}>Create Episode</h1>
                             <FloatingLabel label="Name" className="mb-3" controlId="formGroupName">
                                 <Form.Control
                                     type="name"
-                                    // {...register('name')}
+                                    {...register('name')}
                                     placeholder="Enter a name"
                                     autoComplete="name-input"
                                 />
-                                {/* <Form.Text className="text-danger">{errors['name']?.message}</Form.Text> */}
+                                <Form.Text className="text-danger">{errors['name']?.message}</Form.Text>
                             </FloatingLabel>
                             <Form.Text className="text-muted">
                             </Form.Text>
                             <Form.Label className={styles['image-label']}>Episode image</Form.Label>
-                            <Form.Group controlId="formFile" className="mb-3">
+                            <Form.Group controlId="formFileImage" className="mb-3">
                                 <Form.Control
                                     type="file"
-                                    // {...register('profileImage')}
+                                    {...register('episodeImage')}
                                     // onInput={handleFileChange}
                                     multiple={false}
-                                    placeholder="Profile Image" />
-                                {/* <Form.Text className="text-danger">{errors['profileImage']?.message}</Form.Text> */}
+                                    placeholder="episodeImage" />
+                                <Form.Text className="text-danger">{errors['episodeImage']?.message}</Form.Text>
                             </Form.Group>
-                            <Form.Select className='mb-3' aria-label="Default select example">
+                            <Form.Label className={styles['image-label']}>Episode audio</Form.Label>
+                            <Form.Group controlId="formFileAudio" className="mb-3">
+                                <Form.Control
+                                    type="file"
+                                    {...register('episodeAudio')}
+                                    // onInput={handleFileChange}
+                                    multiple={false}
+                                    placeholder="episodeAudio" />
+                                <Form.Text className="text-danger">{errors['episodeAudio']?.message}</Form.Text>
+                            </Form.Group>
+                            <Form.Select className='mb-3' aria-label="Default select example" {...register('selectedPodcast')}>
                                 <option>Select Podcast</option>
                                 {podcasts.map(podcast => (
-                                    <option key={podcast._id}>{podcast.name}</option>
+                                    <option key={podcast._id} value={podcast._id}>{podcast.name}</option>
                                 ))}
-
                             </Form.Select>
+                            <Form.Text className="text-danger">{errors['selectedPodcast']?.message}</Form.Text>
                             <FloatingLabel className='mb-3' label="Description" controlId="formGroupDescription">
                                 <Form.Control
-                                    style={{ height: '100px' }}
+                                    style={{ height: '150px' }}
                                     as={'textarea'}
                                     type="text"
-                                    // {...register('description')}
+                                    {...register('description')}
                                     placeholder="Description"
                                     autoComplete="description"
                                 />
-                                {/* <Form.Text className="text-danger">{errors['description']?.message}</Form.Text> */}
+                                <Form.Text className="text-danger">{errors['description']?.message}</Form.Text>
                             </FloatingLabel>
                             <div>
                                 <Button className={styles['create-podcast-button']} variant="primary" type="submit">

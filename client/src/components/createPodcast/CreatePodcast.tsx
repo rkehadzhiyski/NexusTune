@@ -38,7 +38,6 @@ const schema = yup.object().shape({
             if (!value) {
                 return false;
             }
-
             const file = isFileList(value) ? value[0] : value;
 
             return file && supportedImageFormats.includes((file as File).type);
@@ -57,8 +56,8 @@ const CreatePodcast = () => {
     } = useContext(AuthContext);
 
     const onSubmit: SubmitHandler<FormData> = async (data) => {
-
         const response = await uploadFile(user.userId, podcastImage);
+
         if (response && response.url) {
             const podcastData: CreatePodcastData = {
                 name: data.name,
@@ -67,8 +66,9 @@ const CreatePodcast = () => {
                 createdAt: new Date().toISOString(),
                 ownerId: user.userId,
             };
+
             const podcastId = await podcastService.create(podcastData);
-            userService.editUser(user.userId,  {uploadedPodcasts: podcastId.data} );
+            userService.editUser(user.userId, { uploadedPodcasts: podcastId.data });
         } else {
             console.error("Upload failed!");
         }
@@ -108,7 +108,7 @@ const CreatePodcast = () => {
                     </Form.Group>
                     <FloatingLabel className='mb-3' label="Description" controlId="formGroupDescription">
                         <Form.Control
-                            style={{ height: '100px' }}
+                            style={{ height: '150px' }}
                             as={'textarea'}
                             type="text"
                             {...register('description')}

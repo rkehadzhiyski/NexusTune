@@ -129,7 +129,7 @@ const EditProfile: React.FC<Props> = (props) => {
                     </Form.Group>
                     <FloatingLabel className='mb-3' label="Description" controlId="formGroupDescription">
                         <Form.Control
-                            style={{ height: '100px' }}
+                            style={{ height: '150px' }}
                             as={'textarea'}
                             type="text"
                             {...register('description')}

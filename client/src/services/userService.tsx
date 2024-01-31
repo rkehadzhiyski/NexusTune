@@ -37,3 +37,8 @@ export const getOne = async(userId:string) => {
     const result = await axios.get(`${baseUrl}/user/${userId}`);
     return result;
 }
+
+export const getUploadedPodcast = async(userId:string) => {
+    const result = await axios.get(`${baseUrl}/${userId}`);
+    return result;
+}

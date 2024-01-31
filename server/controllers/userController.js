@@ -49,12 +49,25 @@ router.post('/edit/:userId', async (req, res) => {
     }
 });
 
-router.get('/user/:userId', async (req,res) => {
+router.get('/user/:userId', async (req, res) => {
     const userId = req.params.userId;
 
     try {
         const result = await userManager.getOne(userId);
         res.json(result);
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error:',
+            message: error.message,
+        });
+    }
+});
+
+router.get('/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    try {
+        const podcasts = await userManager.getUploadedPodcasts(userId);
+        res.json(podcasts);
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',

@@ -39,7 +39,6 @@ const schema = yup.object().shape({
                 return false;
             }
             const file = isFileList(value) ? value[0] : value;
-            console.log('File type:', file);
 
             return file && supportedImageFormats.includes((file as File).type);
         }),
@@ -49,7 +48,6 @@ const schema = yup.object().shape({
                 return false;
             }
             const file = isFileList(value) ? value[0] : value;
-            console.log('File type:', file);
 
             return file && supportedAudioFormats.includes((file as File).type);
         }),

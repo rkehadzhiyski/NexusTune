@@ -31,6 +31,7 @@ const Navigation = () => {
                                 <NavDropdown title={user.username} id="nav-dropdown">
                                     <NavDropdown.Item as={Link} to="/user-profile">My Profile</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/create-podcast">Add Podcast</NavDropdown.Item> 
+                                    <NavDropdown.Item as={Link} to="/create-episode">Add Episode</NavDropdown.Item> 
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item as={Link} onClick={logoutHandler} to="/">Logout</NavDropdown.Item>
                                 </NavDropdown>

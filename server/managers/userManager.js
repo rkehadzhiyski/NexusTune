@@ -33,6 +33,18 @@ exports.login = async ({ email, password }) => {
     return result;
 };
 
+exports.getUploadedPodcasts = async (userId) => {
+    try {
+        const user = await User.findById(userId).populate('uploadedPodcasts');
+        if (!user) {
+            throw new Error('User not found');
+        }
+        return user.uploadedPodcasts;
+    } catch (error) {
+        throw new Error('Error fetching uploaded podcasts');
+    }
+};
+
 exports.edit = async (userId, data) => User.findByIdAndUpdate(userId, data);
 
 exports.getOne = async (userId) => User.findById(userId);

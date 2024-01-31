@@ -64,7 +64,7 @@ const schema = yup.object().shape({
 
             return file && supportedAudioFormats.includes((file as File).type);
         }),
-    selectedPodcast: yup.string().required('Please select a podcast'),
+    selectedPodcast: yup.string().required('Please select a podcast').test('not-empty', 'Please select a podcast', (value) => value !== ''),
     description: yup.string().required('Description is required'),
 });
 
@@ -190,8 +190,8 @@ const CreateEpisode = () => {
                                             </Form.Group>
                                         </div>
                                     </div>
-                                    <Form.Select className='mb-3' aria-label="Default select example" {...register('selectedPodcast')}>
-                                        <option>Select Podcast</option>
+                                    <Form.Select className='mb-3' aria-label="Test" {...register('selectedPodcast')}>
+                                        <option value=''>Select podcast</option>
                                         {podcasts.map(podcast => (
                                             <option key={podcast._id} value={podcast._id}>{podcast.name}</option>
                                         ))}

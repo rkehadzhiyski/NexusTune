@@ -18,6 +18,7 @@ align-items: center;
     width: 150px;
     height: 150px;
     border-radius: 75px;
+    object-fit: fill;
 }
 
 .username{

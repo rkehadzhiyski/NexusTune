@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 import styles from '../createPodcast/createPodcast.module.css';
-import * as podcast from '../../services/podcastService';
+import * as podcastService from '../../services/podcastService';
 import * as userService from '../../services/userService';
 
 import AuthContext from '../../contexts/authContext';
@@ -67,7 +67,7 @@ const CreatePodcast = () => {
                 createdAt: new Date().toISOString(),
                 ownerId: user.userId,
             };
-            const podcastId = await podcast.create(podcastData);
+            const podcastId = await podcastService.create(podcastData);
             userService.editUser(user.userId,  {uploadedPodcasts: podcastId.data} );
         } else {
             console.error("Upload failed!");

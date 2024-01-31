@@ -1,6 +1,33 @@
+import { useContext, useEffect, useState } from "react";
 import { Button, FloatingLabel, Form } from "react-bootstrap";
+import AuthContext from '../../contexts/authContext';
+
+import * as userService from '../../services/userService';
+
+interface PodcastData {
+    name: string;
+    description: string;
+    image: string;
+    createdAt: string;
+    ownerId: string;
+}
 
 const CreateEpisode = () => {
+    const {
+        user,
+    } = useContext(AuthContext);
+    const [podcasts,setPodcasts] = useState<PodcastData[]>([]);
+
+    useEffect(()=>{
+        userService.getUploadedPodcast(user.userId)
+        .then(response => {
+            setPodcasts(response.data);
+        })
+        .catch(error => {
+            console.error('Error fetching podcasts:', error);
+        });
+    },[user.userId]);
+
     return (
         <>
             <Form>
@@ -27,10 +54,11 @@ const CreateEpisode = () => {
                     {/* <Form.Text className="text-danger">{errors['profileImage']?.message}</Form.Text> */}
                 </Form.Group>
                 <Form.Select className='mb-3' aria-label="Default select example">
-                    <option>Open this select menu</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option>Open this select menu</option> 
+                    {podcasts.map(podcast => (
+                        <option key={podcast.name}>{podcast.name}</option>
+                        ))}
+                    
                 </Form.Select>
                 <FloatingLabel className='mb-3' label="Description" controlId="formGroupDescription">
                     <Form.Control

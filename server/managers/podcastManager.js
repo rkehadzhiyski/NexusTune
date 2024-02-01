@@ -11,12 +11,9 @@ exports.getAllOfOwner = (ownerId) => Podcast.find({ ownerId: ownerId });
 exports.getEpisodes = async(podcastId)  => {
     try {
         const podcast = await Podcast.findById(podcastId).populate('episodes');
-        if (!episodes) {
-            throw new Error('No episodes found');
-        }
         return podcast.episodes;
     } catch (error) {
-        throw new Error('Error fetching uploaded podcasts');
+        throw new Error('Error fetching uploaded episodes');
     }
 }
 

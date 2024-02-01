@@ -32,10 +32,24 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/:podcastId', async (req, res) => {
+router.get('/podcast/:podcastId', async (req, res) => {
     const podcast = await podcastManager.getOne(req.params.podcastId);
 
     res.json(podcast);
+});
+
+router.get('/:podcastId', async (req, res) => {
+    const podcastId = req.params.podcastId;
+
+    try {
+        const episodes = await podcastManager.getEpisodes(podcastId);
+        res.json(episodes);
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error:',
+            message: error.message,
+        });
+    }
 });
 
 router.post('/edit/:podcastId', async (req, res) => {

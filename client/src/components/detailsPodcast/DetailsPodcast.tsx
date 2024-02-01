@@ -12,10 +12,19 @@ const DetailsPodcast = () => {
             podcastService.getOne(podcastId)
                 .then(response => {
                     console.log(response.data);
-                })
+                }).catch(error => {
+                    console.error('Error fetching podcast:', error);
+                });
+
+            podcastService.getEpisodes(podcastId)
+                .then(response => {
+                    console.log(response.data);
+                }).catch(error => {
+                    console.error('Error fetching episodes:', error);
+                });
         }
 
-    },[podcastId]);
+    }, [podcastId]);
 
     return (
         <>

@@ -19,7 +19,7 @@ export const create = async (data: uploadData) => {
 };
 
 export const getOne = async (podcastId: string) => {
-    const result = await axios.get(`${baseUrl}/${podcastId}`);
+    const result = await axios.get(`${baseUrl}/podcast/${podcastId}`);
     return result;
 }
 
@@ -37,3 +37,8 @@ export const editPodcast = async (podcastId: string, updatedData: updateEpisode)
     const result = await axios.post(`${baseUrl}/edit/${podcastId}`, updatedData);
     return result;
 } 
+
+export const getEpisodes = async(podcastId:string) =>{
+    const result = await axios.get(`${baseUrl}/${podcastId}`);
+    return result;
+}

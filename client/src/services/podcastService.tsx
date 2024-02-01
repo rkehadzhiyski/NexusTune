@@ -14,12 +14,17 @@ export const create = async (data: uploadData) => {
     return result;
 };
 
+export const getOne = async (podcastId: string) => {
+    const result = await axios.get(`${baseUrl}/${podcastId}`);
+    return result;
+}
+
 export const getAll = async () => {
     const result = await axios.get(baseUrl);
     return result;
 }
 
-export const getAllOfOwner = async(ownerId:string) => {
+export const getAllOfOwner = async (ownerId: string) => {
     const result = await axios.get(`${baseUrl}/owner/${ownerId}`);
     return result;
 }

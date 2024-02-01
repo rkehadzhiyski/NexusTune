@@ -38,10 +38,18 @@ router.get('/:podcastId', async (req, res) => {
     res.json(podcast);
 });
 
-router.put('/:podcastId', async (req, res) => {
-    await podcastManager.update(req.params.podcastId, req.body);
+router.post('/edit/:podcastId', async (req, res) => {
+    const podcastId = req.params.podcastId;
 
-    res.status(204).end();
+    try {
+        const result = await podcastManager.update(podcastId, req.body);
+        return result;
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error:',
+            message: error.message,
+        });
+    }
 });
 
 router.delete('/:podcastId', async (req, res) => {

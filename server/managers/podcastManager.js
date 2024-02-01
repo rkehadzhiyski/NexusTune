@@ -8,6 +8,6 @@ exports.getAll = () => Podcast.find();
 
 exports.getAllOfOwner = (ownerId) => Podcast.find({ ownerId: ownerId });
 
-exports.update = (podcastId) => Podcast.findByIdAndUpdate(podcastId);
+exports.update = (podcastId, data) => Podcast.findByIdAndUpdate(podcastId, data);
 
 exports.delete = (podcastId) => Podcast.findByIdAndDelete(podcastId);

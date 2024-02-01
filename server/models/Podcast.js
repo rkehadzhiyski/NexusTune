@@ -17,10 +17,10 @@ const podcastSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    episodes: {
+    episodes: [{
         type: mongoose.Types.ObjectId,
         ref: 'Episode',
-    },
+    }],
     ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User',

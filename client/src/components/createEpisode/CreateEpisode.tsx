@@ -6,6 +6,8 @@ import * as yup from 'yup';
 import * as userService from '../../services/userService';
 import * as storageService from '../../services/storageService';
 import * as episodeService from '../../services/episodeService';
+import * as podcastService from '../../services/podcastService';
+
 import styles from './createEpisode.module.css';
 
 import { Button, FloatingLabel, Form } from "react-bootstrap";
@@ -106,7 +108,8 @@ const CreateEpisode = () => {
                     podcastId: data.selectedPodcast,
                     ownerId: user.userId,
                 }
-                episodeService.create(episodeData);
+                const episodeId = await episodeService.create(episodeData);
+                podcastService.editPodcast(data.selectedPodcast, { episodes: episodeId.data });
             }
 
         } catch (error) {

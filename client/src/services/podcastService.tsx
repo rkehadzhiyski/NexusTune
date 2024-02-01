@@ -10,7 +10,7 @@ interface uploadData {
 }
 
 interface updateEpisode {
-    episode: string;
+    episodes: string;
 }
 
 export const create = async (data: uploadData) => {

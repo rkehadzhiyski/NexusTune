@@ -5,7 +5,7 @@ const episodeManager = require('../managers/episodeManager');
 router.post('/', async(req, res) => {
     try {
         const episode = await episodeManager.create(req.body);
-        res.json(episode);
+        res.json(episode._id);
     } catch (error) {
         console.log(error)
         res.status(400).json({

@@ -16,3 +16,8 @@ export const create = async (data: uploadData) => {
     const result = await axios.post(baseUrl, data);
     return result;
 };
+
+export const getOne = async (episodeId:string) => {
+    const result = await axios.get(`${baseUrl}/${episodeId}`);
+    return result;
+};

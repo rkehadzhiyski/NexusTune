@@ -14,4 +14,18 @@ router.post('/', async(req, res) => {
     }
 });
 
+router.get('/:episodeId', async(req,res) =>{
+    const episodeId = req.params.episodeId;
+
+    try {
+        const episode = await episodeManager.getOne(episodeId);
+        res.json(episode);
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({
+            message: 'Cannot find Episode'
+        });
+    }
+});
+
 module.exports = router;

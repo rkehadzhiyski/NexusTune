@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import * as podcastService from '../../services/podcastService';
-import { useParams } from "react-router-dom";
+import styles from './detailsPodcast.module.css';
+
 import EpisodeCard from "../episodeCard/EpisodeCard";
 
 interface Podcast {
@@ -46,11 +48,17 @@ const DetailsPodcast = () => {
     }, [podcastId]);
 
     return (
-        <div>
-            <h1>{podcast?.name}</h1>
-            {episodes?.map(episode => (
-                <EpisodeCard key={episode._id} episode={episode} />
-            ))}
+        <div className={styles['podcast-details-page']}>
+            <div className={styles['podcast-info']}>
+                <h1>{podcast?.name}</h1>
+                <p className={styles['podcast-description']}>{podcast?.description}</p>
+            </div>
+            <div className={styles['episodes-section']}>
+                <h2>Episodes</h2>
+                {episodes?.map(episode => (
+                    <EpisodeCard key={episode._id} episode={episode} />
+                ))}
+            </div>
         </div>
     );
 }

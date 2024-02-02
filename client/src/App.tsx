@@ -9,6 +9,7 @@ import CreatePodcast from "./components/createPodcast/CreatePodcast";
 import UserProfile from "./components/userProfile/UserProfile";
 import CreateEpisode from "./components/createEpisode/CreateEpisode";
 import DetailsPodcast from "./components/detailsPodcast/DetailsPodcast";
+import DetailsEpisode from "./components/detailsEpisode/detailsEpisode";
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                         <Route path="/create-podcast" element={<CreatePodcast />} ></Route>
                         <Route path="/create-episode" element={<CreateEpisode />} ></Route>
                         <Route path="/podcast/:podcastId" element={<DetailsPodcast />} ></Route>
+                        <Route path="/episode/:episodeId" element={<DetailsEpisode />} ></Route>
                     </Routes>
                 </div>
             </div>

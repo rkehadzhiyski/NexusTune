@@ -2,6 +2,7 @@ import Card from 'react-bootstrap/Card';
 
 import styles from './episodeCard.module.css';
 import { formatDate } from '../../utils/formatDate'
+import { useNavigate } from 'react-router-dom';
 
 interface Episode {
     _id: number;
@@ -17,8 +18,13 @@ interface PodcastCardProps {
 }
 
 const EpisodeCard: React.FC<PodcastCardProps> = ({ episode }) => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/episode/${episode._id}`);
+    };
     return (
-        <Card className={styles['card-container']} >
+        <Card className={styles['card-container']} onClick={handleClick}>
             <Card.Header>{episode.name}</Card.Header>
             <Card.Body>
                 <Card.Img className={styles['card-image']} variant="top" src={episode.image} />

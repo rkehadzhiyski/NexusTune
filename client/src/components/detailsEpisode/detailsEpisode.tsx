@@ -31,7 +31,6 @@ const DetailsEpisode = () => {
     return (
         <>
         <h1>{episode?.name}</h1>
-        <h1>EBEM</h1>
         <audio controls src={episode?.audio}></audio>
         </>
     );

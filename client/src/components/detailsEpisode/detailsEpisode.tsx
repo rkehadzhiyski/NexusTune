@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import * as episodeService from '../../services/episodeService';
+import styles from './detailsEpisode.module.css';
+
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 interface Episode {
     _id: number;
@@ -13,12 +17,12 @@ interface Episode {
 }
 
 const DetailsEpisode = () => {
-    const [episode,setEpisode] = useState<Episode>();
+    const [episode, setEpisode] = useState<Episode>();
     const params = useParams();
     const { episodeId } = params;
-    
-    useEffect(()=>{
-        if (episodeId) {            
+
+    useEffect(() => {
+        if (episodeId) {
             episodeService.getOne(episodeId)
                 .then(response => {
                     setEpisode(response.data)
@@ -26,13 +30,17 @@ const DetailsEpisode = () => {
                     console.error('Error fetching episodes:', error);
                 });
         }
-    },[episodeId])
+    }, [episodeId])
 
     return (
-        <>
-        <h1>{episode?.name}</h1>
-        <audio controls src={episode?.audio}></audio>
-        </>
+        <div>
+            <h1>{episode?.name}</h1>
+            <AudioPlayer
+                autoPlayAfterSrcChange={false}
+                src={episode?.audio}
+                volume={0.5}
+            />
+        </div>
     );
 }
 

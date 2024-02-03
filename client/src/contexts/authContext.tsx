@@ -13,12 +13,14 @@ interface UserData {
     username: string;
     userId: string;
     accessToken?: string;
+    image?: string;
 }
 
 interface AuthValues {
     registerSubmitHandler: (values: { email: string; password: string; username: string }) => Promise<void>;
     loginSubmitHandler: (values: { email: string; password: string }) => Promise<void>;
     logoutHandler: () => void;
+    updateAuth: (userImage: string) => void;
     user: UserData;
     isAuthenticated: boolean;
 }
@@ -27,11 +29,13 @@ const initialAuthValues: AuthValues = {
     registerSubmitHandler: async () => { },
     loginSubmitHandler: async () => { },
     logoutHandler: () => { },
+    updateAuth: () => { },
     user: {
         email: '',
         username: '',
         userId: '',
         accessToken: '',
+        image: '',
     },
     isAuthenticated: false,
 };
@@ -45,7 +49,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
     const [auth, setAuth] = usePersistedState<UserData>('auth', {
         email: '',
         username: '',
-        userId: ''
+        userId: '',
     });
 
     const registerSubmitHandler = async (values: { email: string; password: string; username: string }): Promise<void> => {
@@ -68,6 +72,18 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         navigate('/');
     }
 
+    const updateAuth = (userImage: string) => {
+        const newAuth = {
+            email: auth.email,
+            username: auth.username,
+            userId: auth.userId,
+            image: userImage,
+            accessToken: auth.accessToken,
+        }
+
+        setAuth(newAuth);
+    }
+
     const logoutHandler = async () => {
         await userService.logout()
         //TODO : Might need to handle this otherwise
@@ -84,11 +100,13 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         registerSubmitHandler,
         loginSubmitHandler,
         logoutHandler,
+        updateAuth,
         user: {
             email: auth.email || '',
             username: auth.username || '',
             userId: auth.userId || '',
             accessToken: auth.accessToken || '',
+            image: auth.image || '',
         },
         isAuthenticated: !!auth.accessToken,
     };

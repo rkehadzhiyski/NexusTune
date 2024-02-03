@@ -33,13 +33,24 @@ const DetailsEpisode = () => {
     }, [episodeId])
 
     return (
-        <div>
-            <h1>{episode?.name}</h1>
-            <AudioPlayer
-                autoPlayAfterSrcChange={false}
-                src={episode?.audio}
-                volume={0.5}
-            />
+        <div className={styles['episode-details-page']}>
+            <div className={styles['episode-details-container']}>
+                <h1>{episode?.name}</h1>
+                <AudioPlayer
+                    autoPlayAfterSrcChange={false}
+                    src={episode?.audio}
+                    volume={0.5}
+                />
+                <div className={styles['episode-details-bottom-section']}>
+                    <div className={styles['episode-description']}>
+                        <p>{episode?.description}</p>
+                    </div>
+                    <div className={styles['user-description']}>
+                        <img className={styles['user-photo']} src='https://wallpapers.com/images/featured/cute-aesthetic-profile-pictures-pjfl391j3q0f7rlz.jpg' alt='profile-photo' />
+                        <p>Username</p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

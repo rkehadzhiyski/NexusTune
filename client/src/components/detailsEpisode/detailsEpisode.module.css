@@ -1,0 +1,37 @@
+.episode-details-page{
+    display: flex;
+    justify-content: center;
+}
+
+.episode-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    padding: 20px;
+    border: 1px solid white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.episode-details-bottom-section{
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 100%;
+}
+
+.episode-description{
+    text-align: center;
+}
+
+.user-description{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-photo{
+    width: 150px;
+    height: 150px;
+}
+

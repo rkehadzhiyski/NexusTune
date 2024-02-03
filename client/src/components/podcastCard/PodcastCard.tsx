@@ -3,6 +3,8 @@ import Card from 'react-bootstrap/Card';
 import styles from './podcastCard.module.css';
 import { useNavigate } from 'react-router-dom';
 
+import { truncateText } from '../../utils/trancateText';
+
 interface Podcast {
   _id: number;
   name: string;
@@ -17,6 +19,8 @@ interface PodcastCardProps {
 const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
   const navigate = useNavigate();
 
+  const text = truncateText(podcast.description);
+
   const handleClick = () => {
     navigate(`/podcast/${podcast._id}`);
   };
@@ -26,8 +30,8 @@ const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
       <Card.Img className={styles['card-image']} variant="top" src={podcast.image} />
       <Card.Body>
         <Card.Title>{podcast.name}</Card.Title>
-        <Card.Text>
-          {podcast.description}
+        <Card.Text className={styles['podcast-description']}>
+          {text}
         </Card.Text>
       </Card.Body>
     </Card>

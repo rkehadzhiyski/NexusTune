@@ -27,7 +27,7 @@ const Navigation = () => {
                     <Nav>
                         {isAuthenticated && (
                             <div className={styles['profile-info-container']}>
-                                <img className={styles['profile-image']} src={user.image || '/public/user-image-default.webp'} alt="profile-image" />
+                                <img className={styles['profile-image']} src={user.image || '/user-image-default.webp'} alt="profile-image" />
                                 <NavDropdown title={user.username} id="nav-dropdown">
                                     <NavDropdown.Item as={Link} to="/user-profile">My Profile</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/create-podcast">Add Podcast</NavDropdown.Item> 

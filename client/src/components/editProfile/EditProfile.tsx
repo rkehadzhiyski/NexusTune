@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FloatingLabel } from 'react-bootstrap';
 import { uploadFile } from '../../services/storageService';
+import AuthContext from '../../contexts/authContext';
 
 interface Props {
     onHide: () => void,
@@ -56,6 +57,9 @@ const EditProfile: React.FC<Props> = (props) => {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
     });
+    const {
+        updateAuth,
+    } = useContext(AuthContext);
 
     useEffect(() => {
         if (props.user.description) {
@@ -76,6 +80,10 @@ const EditProfile: React.FC<Props> = (props) => {
             userData.description = data.description;
         }
 
+        if (userImage) {
+            updateAuth(userImage);
+        }
+
         userService.editUser(props.user._id, userData);
         props.fetchData();
         props.onHide();
@@ -83,9 +91,9 @@ const EditProfile: React.FC<Props> = (props) => {
 
     const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
-            
+
             try {
-                const response = await uploadFile(props.user._id, event.target.files[0]);                
+                const response = await uploadFile(props.user._id, event.target.files[0]);
                 if (response && response.url) {
                     setUserImage(response.url);
                 } else {
@@ -111,9 +119,9 @@ const EditProfile: React.FC<Props> = (props) => {
                 </Modal.Title>
             </Modal.Header>
             {userImage &&
-            <div className={styles['image-container']}>
-                <img className={styles['image']} src={userImage} alt="profile-photo-preview" />
-            </div>
+                <div className={styles['image-container']}>
+                    <img className={styles['image']} src={userImage} alt="profile-photo-preview" />
+                </div>
             }
             <Modal.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>

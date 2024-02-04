@@ -17,9 +17,9 @@ exports.getEpisodes = async(podcastId)  => {
     }
 }
 
-exports.getLatest = async(limit) =>{
+exports.getLatest = async() =>{
     try {
-        const podcast = await Podcast.find().sort({ createdAt: -1 }).limit(limit);
+        const podcast = await Podcast.find().sort({ createdAt: -1 }).limit(3);
         return podcast;
     } catch (error) {
         throw new Error('Error fetching latest podcasts');

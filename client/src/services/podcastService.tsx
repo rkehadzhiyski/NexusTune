@@ -42,3 +42,8 @@ export const getEpisodes = async(podcastId:string) =>{
     const result = await axios.get(`${baseUrl}/${podcastId}`);
     return result;
 }
+
+export const getLatest = async() =>{
+    const result = await axios.get(`${baseUrl}/latest`);
+    return result;
+}

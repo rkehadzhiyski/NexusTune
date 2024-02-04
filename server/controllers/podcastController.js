@@ -46,7 +46,7 @@ router.get('/podcast/:podcastId', async (req, res) => {
 
 router.get('/latest', async (req, res) => {
     try {
-        const podcasts = await podcastManager.getLatest(req.body);
+        const podcasts = await podcastManager.getLatest();
         res.json(podcasts);
     } catch (error) {
         res.status(400).json({

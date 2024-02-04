@@ -33,9 +33,27 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/podcast/:podcastId', async (req, res) => {
-    const podcast = await podcastManager.getOne(req.params.podcastId);
+    try {
+        const podcast = await podcastManager.getOne(req.params.podcastId);
+        res.json(podcast);
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error:',
+            message: error.message,
+        });
+    }
+});
 
-    res.json(podcast);
+router.get('/latest', async (req, res) => {
+    try {
+        const podcasts = await podcastManager.getLatest(req.body);
+        res.json(podcasts);
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error:',
+            message: error.message,
+        });
+    }
 });
 
 router.get('/:podcastId', async (req, res) => {

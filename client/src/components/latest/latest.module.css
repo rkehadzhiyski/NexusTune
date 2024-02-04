@@ -1,9 +1,35 @@
-.second-podcast-image {
-    width: 100px;
-    height: 150px;
+.latest-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
-.third-podcast-image {
-    width: 100px;
-    height: 150px;
+.podcast-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 398px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.podcast-image {
+    height: 177px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.podcast-name {
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
+}
+
+

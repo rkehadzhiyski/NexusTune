@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import * as podcastService from '../../services/podcastService';
 
-import PodcastCard from "../podcastCard/PodcastCard";
+import styles from './home.module.css';
 
+import PodcastCard from "../podcastCard/PodcastCard";
 import Latest from "../latest/Latest";
 
 interface Podcast {
@@ -36,7 +37,7 @@ const Home = () => {
     }, []);
 
     return (
-        <>
+        <div className={styles['home-page']}>
             {latestPodcasts.length > 0 &&
                 < Latest latestPodcasts={latestPodcasts} />
             }
@@ -45,7 +46,7 @@ const Home = () => {
                     <PodcastCard key={podcast._id} podcast={podcast} />
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 

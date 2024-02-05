@@ -39,7 +39,7 @@ router.get('/podcast/:podcastId', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
     }
 });
@@ -51,7 +51,7 @@ router.get('/latest', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
     }
 });
@@ -65,12 +65,12 @@ router.get('/:podcastId', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
     }
 });
 
-router.post('/edit/:podcastId', async (req, res) => {
+router.put('/update/:podcastId', async (req, res) => {
     const podcastId = req.params.podcastId;
 
     try {
@@ -79,7 +79,7 @@ router.post('/edit/:podcastId', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
     }
 });

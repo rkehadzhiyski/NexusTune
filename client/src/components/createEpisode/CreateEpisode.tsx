@@ -86,7 +86,6 @@ const CreateEpisode = () => {
     useEffect(() => {
         userService.getUploadedPodcast(user.userId)
             .then(response => {
-                console.log(response.data)
                 setPodcasts(response.data);
                 setIsLoading(false);
             })
@@ -119,7 +118,7 @@ const CreateEpisode = () => {
                     }
 
                     const episodeId = await episodeService.create(episodeData);
-                    podcastService.editPodcast(data.selectedPodcast, { episodes: episodeId.data });
+                    podcastService.updatePodcastEpisodes(data.selectedPodcast, { episodes: episodeId.data });
                 });
             }
 

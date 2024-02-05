@@ -26,6 +26,24 @@ exports.getLatest = async() =>{
     }
 }
 
-exports.update = (podcastId, data) => Podcast.findByIdAndUpdate(podcastId, data);
+exports.update = async(podcastId, data) => {
+    try {
+        if(data.episodes){
+            const podcast = await Podcast.findById(podcastId);
+
+            if(!podcast) {
+                throw new Error ('Podcast not found');
+            }
+
+            podcast.episodes.push(data.episodes);
+
+            await podcast.save();
+
+            return podcast;
+        }
+    } catch (error) {
+        throw new Error(`Error editing podcast: ${error.message}`);
+    }
+}
 
 exports.delete = (podcastId) => Podcast.findByIdAndDelete(podcastId);

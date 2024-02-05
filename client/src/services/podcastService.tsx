@@ -33,8 +33,8 @@ export const getAllOfOwner = async (ownerId: string) => {
     return result;
 }
 
-export const editPodcast = async (podcastId: string, updatedData: updateEpisode) => {
-    const result = await axios.post(`${baseUrl}/edit/${podcastId}`, updatedData);
+export const updatePodcastEpisodes = async (podcastId: string, updatedData: updateEpisode) => {
+    const result = await axios.put(`${baseUrl}/update/${podcastId}`, updatedData);
     return result;
 } 
 

@@ -9,6 +9,7 @@ interface uploadData {
     podcastId: string;
     description: string;
     createdAt: string;
+    duration: number;
     ownerId: string;
 }
 
@@ -17,7 +18,7 @@ export const create = async (data: uploadData) => {
     return result;
 };
 
-export const getOne = async (episodeId:string) => {
+export const getOne = async (episodeId: string) => {
     const result = await axios.get(`${baseUrl}/${episodeId}`);
     return result;
 };

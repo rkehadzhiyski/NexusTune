@@ -21,6 +21,10 @@ const episodeSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    duration: {
+        type: Number,
+        require: true,
+    },
     podcastId: {
         type: mongoose.Types.ObjectId,
         ref: 'Podcast',

@@ -38,6 +38,7 @@ interface EpisodeData {
     podcastId: string;
     description: string;
     createdAt: string;
+    duration: number,
     ownerId: string;
 }
 
@@ -85,6 +86,7 @@ const CreateEpisode = () => {
     useEffect(() => {
         userService.getUploadedPodcast(user.userId)
             .then(response => {
+                console.log(response.data)
                 setPodcasts(response.data);
                 setIsLoading(false);
             })
@@ -99,17 +101,26 @@ const CreateEpisode = () => {
             const audioResponse = await storageService.uploadFile(user.userId, episodeAudio);
 
             if (imageResponse?.url && audioResponse?.url) {
-                const episodeData: EpisodeData = {
-                    name: data.name,
-                    image: imageResponse.url,
-                    audio: audioResponse.url,
-                    description: data.description,
-                    createdAt: new Date().toISOString(),
-                    podcastId: data.selectedPodcast,
-                    ownerId: user.userId,
-                }
-                const episodeId = await episodeService.create(episodeData);
-                podcastService.editPodcast(data.selectedPodcast, { episodes: episodeId.data });
+
+                const audioElement = new Audio(audioResponse.url);
+
+                audioElement.addEventListener('loadedmetadata', async() => {
+                    const durationInSeconds = audioElement.duration;
+
+                    const episodeData: EpisodeData = {
+                        name: data.name,
+                        image: imageResponse.url,
+                        audio: audioResponse.url,
+                        description: data.description,
+                        createdAt: new Date().toISOString(),
+                        duration: durationInSeconds,
+                        podcastId: data.selectedPodcast,
+                        ownerId: user.userId,
+                    }
+
+                    const episodeId = await episodeService.create(episodeData);
+                    podcastService.editPodcast(data.selectedPodcast, { episodes: episodeId.data });
+                });
             }
 
         } catch (error) {

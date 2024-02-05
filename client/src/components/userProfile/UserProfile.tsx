@@ -47,7 +47,7 @@ const UserProfile = () => {
                 <p className={styles['username']}>{user.username}</p>
                 <div className={styles['profile-description']}>
                     <p>{userData?.description}</p>
-                    <Button onClick={() => setModalShow(true)} variant="primary" >
+                    <Button className={styles['edit-button']} onClick={() => setModalShow(true)} variant="primary" >
                         Edit Profile
                     </Button>
                 </div>

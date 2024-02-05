@@ -44,13 +44,13 @@ const UserProfile = () => {
         <div className={styles['profile-page']}>
             <div className={styles['profile-info-container']}>
                 <img className={styles['profile-picture']} src={userData?.image ?? '/user-image-default.webp'} alt='profile-image' />
-                <p className={styles['username']}>{user.username}</p>
+                <h4 className={styles['username']}>{user.username}</h4>
                 <div className={styles['profile-description']}>
                     <p>{userData?.description}</p>
+                </div>
                     <Button className={styles['edit-button']} onClick={() => setModalShow(true)} variant="primary" >
                         Edit Profile
                     </Button>
-                </div>
             </div>
             <div className={styles['user-podcasts']}>
                 <h2 className={styles['podcasts-heading']}>My Podcasts</h2>

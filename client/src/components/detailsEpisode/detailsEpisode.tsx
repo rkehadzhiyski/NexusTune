@@ -13,7 +13,8 @@ interface Episode {
     description: string;
     image: string;
     audio: string;
-    createdAt: string
+    createdAt: string;
+    duration: number;
 }
 
 const DetailsEpisode = () => {

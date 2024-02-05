@@ -19,7 +19,8 @@ interface Episode {
     description: string;
     image: string;
     audio: string;
-    createdAt: string
+    createdAt: string;
+    duration: number;
 }
 
 const DetailsPodcast = () => {
@@ -55,9 +56,11 @@ const DetailsPodcast = () => {
             </div>
             <div className={styles['episodes-section']}>
                 <h2>Episodes</h2>
-                {episodes?.map(episode => (
-                    <EpisodeCard key={episode._id} episode={episode} />
-                ))}
+                <div className={styles['episodes']}>
+                    {episodes?.map(episode => (
+                        <EpisodeCard key={episode._id} episode={episode} />
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -31,7 +31,7 @@ const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
 
     return (
         <div className={styles['latest-container']}>
-            <h2>Latest Podcast</h2>
+            <h2>Latest Podcasts</h2>
             <div className={styles['podcast-container']}>
                 <div>
                     <PodcastCard key={firstPodcast._id} podcast={firstPodcast} />

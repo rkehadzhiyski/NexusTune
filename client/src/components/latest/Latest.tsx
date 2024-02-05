@@ -16,6 +16,7 @@ interface PodcastCardProps {
 
 const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
     const [hoveredPodcast, setHoveredPodcast] = useState<Podcast | null>(null);
+    const [isVisible , setIsVisible] = useState<boolean>(true);
 
     const firstPodcast = latestPodcasts[0];
     const secondPodcast = latestPodcasts[1];
@@ -23,10 +24,12 @@ const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
 
     const handleMouseEnter = (podcast: Podcast) => {
         setHoveredPodcast(podcast);
+        setIsVisible(false);
     };
 
     const handleMouseLeave = () => {
         setHoveredPodcast(null);
+        setIsVisible(true);
     };
 
     return (
@@ -45,7 +48,7 @@ const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
                         {hoveredPodcast === secondPodcast &&
                             <PodcastCard key={secondPodcast._id} podcast={secondPodcast} />
                         }
-                        {hoveredPodcast === null &&
+                        {isVisible &&
                             <>
                                 <img className={styles['podcast-image']} src={secondPodcast.image}></img>
                                 <p className={styles['podcast-name']}>{secondPodcast.name}</p>
@@ -61,7 +64,7 @@ const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
                         {hoveredPodcast === thirdPodcast &&
                             <PodcastCard key={thirdPodcast._id} podcast={thirdPodcast} />
                         }
-                        {hoveredPodcast === null &&
+                        {isVisible &&
                             <>
                                 <img className={styles['podcast-image']} src={thirdPodcast.image}></img>
                                 <p className={styles['podcast-name']}>{thirdPodcast.name}</p>

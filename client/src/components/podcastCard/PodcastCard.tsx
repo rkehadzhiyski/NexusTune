@@ -29,7 +29,7 @@ const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
     <Card className={styles['card-container']} onClick={handleClick}>
       <Card.Img className={(styles['card-image'])} variant="top" src={podcast.image} />
       <Card.Body>
-        <Card.Title>{podcast.name}</Card.Title>
+        <Card.Title className={styles['podcast-name']}>{podcast.name}</Card.Title>
         <Card.Text className={styles['podcast-description']}>
           {description}
         </Card.Text>

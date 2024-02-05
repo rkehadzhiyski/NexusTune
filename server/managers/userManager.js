@@ -47,6 +47,28 @@ exports.getUploadedPodcasts = async (userId) => {
 
 exports.edit = async (userId, data) => User.findByIdAndUpdate(userId, data);
 
+exports.update = async (userId, data) => {
+    try {
+        if (data.uploadedPodcasts) {
+            const user = await User.findById(userId);
+
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            const podcastIds = data.uploadedPodcasts
+
+            user.uploadedPodcasts.push(podcastIds);
+
+            await user.save();
+
+            return user;
+        }
+    } catch (error) {
+        throw new Error(`Error editing user: ${error.message}`);
+    }
+};
+
 exports.getOne = async (userId) => User.findById(userId);
 
 function getAuthResult(user) {
@@ -60,7 +82,7 @@ function getAuthResult(user) {
     const result = {
         userId: user.id,
         email: user.email,
-        username :user.username,
+        username: user.username,
         accessToken: token,
     };
 

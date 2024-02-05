@@ -33,6 +33,11 @@ export const editUser = async (userId: string, updatedData: UserUpdate) => {
     return result;
 }
 
+export const updateUserPodcasts = async (userId: string, updatedData: UserUpdate) => {
+    const result = await axios.put(`${baseUrl}/update/${userId}`, updatedData);
+    return result;
+} 
+
 export const getOne = async(userId:string) => {
     const result = await axios.get(`${baseUrl}/user/${userId}`);
     return result;

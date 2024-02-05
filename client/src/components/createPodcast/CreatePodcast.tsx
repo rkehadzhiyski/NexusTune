@@ -69,7 +69,7 @@ const CreatePodcast = () => {
                 };
 
                 const podcastId = await podcastService.create(podcastData);
-                userService.editUser(user.userId, { uploadedPodcasts: podcastId.data });
+                userService.updateUserPodcasts(user.userId, { uploadedPodcasts: podcastId.data });
             }
 
         } catch (error) {

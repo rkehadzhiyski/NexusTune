@@ -12,7 +12,7 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
 
     }
@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
     }
 });
@@ -44,7 +44,21 @@ router.post('/edit/:userId', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
+        });
+    }
+});
+
+router.put('/update/:userId', async(req,res) => {
+    const userId = req.params.userId;
+
+    try {
+        const result = await userManager.update(userId, req.body);
+        return result;
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error updating the user:',
+            error: error.message,
         });
     }
 });
@@ -58,7 +72,7 @@ router.get('/user/:userId', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
     }
 });
@@ -71,7 +85,7 @@ router.get('/:userId', async (req, res) => {
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
-            message: error.message,
+            error: error.message,
         });
     }
 });

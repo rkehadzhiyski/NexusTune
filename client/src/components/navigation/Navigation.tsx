@@ -17,8 +17,8 @@ const Navigation = () => {
     } = useContext(AuthContext);
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
+        <Navbar expand="lg" className={styles['nav-bar']}>
+            <Container className={styles['navigation-bar-container']}>
                 <Navbar.Brand as={Link} to="/">Nexus Tune</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">

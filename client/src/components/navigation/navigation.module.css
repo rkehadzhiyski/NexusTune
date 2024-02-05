@@ -1,10 +1,18 @@
+.nav-bar{
+    background-color: whitesmoke;
+}
+
+.navigation-bar-container{
+    height: 50px;
+}
+
 .profile-info-container{
     display: flex;
     align-items: center;
 }
 
 .profile-image {
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 18px;
 }

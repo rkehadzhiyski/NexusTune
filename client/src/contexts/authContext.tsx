@@ -50,6 +50,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         email: '',
         username: '',
         userId: '',
+        image: '',
     });
 
     const registerSubmitHandler = async (values: { email: string; password: string; username: string }): Promise<void> => {
@@ -65,7 +66,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
     const loginSubmitHandler = async (values: { email: string; password: string }) => {
         const response = await userService.login(values);
         const result = response.data;
-
+        
         setAuth(result);
         localStorage.setItem('accessToken', result.accessToken);
 
@@ -90,7 +91,8 @@ export const AuthProvider: React.FC<AuthContextProps> = ({
         setAuth({
             email: '',
             username: '',
-            userId: ''
+            userId: '',
+            image: '',
         });
 
         localStorage.removeItem('accessToken');

@@ -83,6 +83,7 @@ function getAuthResult(user) {
         userId: user.id,
         email: user.email,
         username: user.username,
+        image: user.image,
         accessToken: token,
     };
 

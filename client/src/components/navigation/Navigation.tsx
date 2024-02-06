@@ -19,7 +19,7 @@ const Navigation = () => {
     return (
         <Navbar expand="lg" className={styles['nav-bar']}>
             <Container className={styles['navigation-bar-container']}>
-                <Navbar.Brand as={Link} to="/">Nexus Tune</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/"><img className={styles['logo']} src='/Nexus Tunes-logos_transparent.png' alt="" /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">

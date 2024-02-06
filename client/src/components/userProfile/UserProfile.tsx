@@ -48,7 +48,7 @@ const UserProfile = () => {
                 <div className={styles['profile-description']}>
                     <p>{userData?.description}</p>
                 </div>
-                    <Button className={styles['edit-button']} onClick={() => setModalShow(true)} variant="primary" >
+                    <Button className={styles['edit-button']} onClick={() => setModalShow(true)} style={{backgroundColor: '#5065a8'}}>
                         Edit Profile
                     </Button>
             </div>

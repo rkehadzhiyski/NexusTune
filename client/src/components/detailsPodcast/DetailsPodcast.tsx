@@ -52,7 +52,9 @@ const DetailsPodcast = () => {
         <div className={styles['podcast-details-page']}>
             <div className={styles['podcast-info']}>
                 <h1>{podcast?.name}</h1>
-                <p className={styles['podcast-description']}>{podcast?.description}</p>
+                <div className={styles['podcast-description']}>
+                    <p>{podcast?.description}</p>
+                </div>
             </div>
             <div className={styles['episodes-section']}>
                 <h2>Episodes</h2>

@@ -4,22 +4,27 @@
     align-items: center;
 }
 
-.podcast-info{
+.podcast-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 800px;
+    width: 1250px;
     margin-bottom: 10px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #5065a8;
 }
 
-.episodes-section{
+.podcast-description {
+    text-align: center;
+    width: 700px;
+}
+
+.episodes-section {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.episodes{
+.episodes {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;

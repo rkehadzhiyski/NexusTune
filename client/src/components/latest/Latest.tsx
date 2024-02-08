@@ -45,7 +45,7 @@ const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
                                 <h4>{podcast.name}</h4>
                             </div>
                             <div className={styles['additional-podcast-description']}>
-                                <p>{truncateText(podcast.description, 160)}</p>
+                                <p>{truncateText(podcast.description, 145)}</p>
                             </div>
                             <div className={styles['additional-podcast-more-info']}>
                                 <p>{formatDate(podcast.createdAt)}</p>

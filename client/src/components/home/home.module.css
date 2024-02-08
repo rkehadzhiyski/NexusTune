@@ -4,3 +4,14 @@
     align-items: center;
     gap: 50px;
 }
+
+.logo{
+    width: 30rem;
+    margin-bottom: 20px;
+}
+
+.intro-text{
+    width: 50rem;
+    text-align: center;
+    font-style: italic;
+}

@@ -9,6 +9,7 @@
 .top-section {
     display: flex;
     border-radius: 8px;
+    width: 85rem;
     gap: 20px;
     padding-right: 10px;
     cursor: pointer;
@@ -28,7 +29,7 @@
 .podcast-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     padding-top: 10px;
 }
 
@@ -42,6 +43,7 @@
 
 .additional-podcast-container {
     width: 325px;
+    height: 24rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 8px;
     cursor: pointer;
@@ -50,8 +52,8 @@
 .info-section {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     padding: 10px;
+    height: 100%;
 }
 
 .additional-podcast-image {

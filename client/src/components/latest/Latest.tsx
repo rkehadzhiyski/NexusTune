@@ -1,13 +1,15 @@
-import { useState } from "react";
-import PodcastCard from "../podcastCard/PodcastCard";
-
 import styles from './latest.module.css';
+
+import Image from 'react-bootstrap/Image';
+import { formatDate } from "../../utils/formatDate";
+import { truncateText } from "../../utils/trancateText";
 
 interface Podcast {
     _id: number;
     name: string;
     description: string;
     image: string;
+    createdAt: string;
 }
 
 interface PodcastCardProps {
@@ -15,65 +17,44 @@ interface PodcastCardProps {
 }
 
 const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
-    const [hoveredPodcast, setHoveredPodcast] = useState<Podcast | null>(null);
-    const [isVisible , setIsVisible] = useState<boolean>(true);
-
-    const firstPodcast = latestPodcasts[0];
-    const secondPodcast = latestPodcasts[1];
-    const thirdPodcast = latestPodcasts[2];
-
-    const handleMouseEnter = (podcast: Podcast) => {
-        setHoveredPodcast(podcast);
-        setIsVisible(false);
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredPodcast(null);
-        setIsVisible(true);
-    };
+    const firstPodcast = latestPodcasts.shift();
 
     return (
         <div className={styles['latest-container']}>
             <h2>Latest Podcasts</h2>
-            <div className={styles['podcast-container']}>
-                <div>
-                    <PodcastCard key={firstPodcast._id} podcast={firstPodcast} />
-                </div>
-                <div>
-                    <div
-                        className={styles['image-container']}
-                        onMouseEnter={() => handleMouseEnter(secondPodcast)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        {hoveredPodcast === secondPodcast &&
-                            <PodcastCard key={secondPodcast._id} podcast={secondPodcast} />
-                        }
-                        {isVisible &&
-                            <>
-                                <img className={styles['podcast-image']} src={secondPodcast.image}></img>
-                                <p className={styles['podcast-name']}>{secondPodcast.name}</p>
-                            </>
-                        }
+            <section className={styles['top-section']}>
+                <Image className={styles['podcast-image']} src={firstPodcast?.image} rounded />
+                <div className={styles['podcast-info']}>
+                    <div>
+                        <h3>{firstPodcast?.name}</h3>
                     </div>
-
-                    <div
-                        className={styles['image-container']}
-                        onMouseEnter={() => handleMouseEnter(thirdPodcast)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        {hoveredPodcast === thirdPodcast &&
-                            <PodcastCard key={thirdPodcast._id} podcast={thirdPodcast} />
-                        }
-                        {isVisible &&
-                            <>
-                                <img className={styles['podcast-image']} src={thirdPodcast.image}></img>
-                                <p className={styles['podcast-name']}>{thirdPodcast.name}</p>
-                            </>
-                        }
+                    <div className={styles['podcast-description']}>
+                        <p>{firstPodcast?.description}</p>
+                    </div>
+                    <div className={styles['podcast-more-info']}>
+                        <p>{formatDate(firstPodcast!.createdAt)}</p>
                     </div>
                 </div>
-            </div>
-        </div >
+            </section>
+            <section className={styles['bottom-section']}>
+                {latestPodcasts.map(podcast => (
+                    <div key={podcast._id} className={styles['additional-podcast-container']}>
+                        <Image className={styles['additional-podcast-image']} src={podcast.image} />
+                        <div className={styles['info-section']}>
+                            <div>
+                                <h4>{podcast.name}</h4>
+                            </div>
+                            <div className={styles['additional-podcast-description']}>
+                                <p>{truncateText(podcast.description, 160)}</p>
+                            </div>
+                            <div className={styles['additional-podcast-more-info']}>
+                                <p>{formatDate(podcast.createdAt)}</p>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </section>
+        </div>
     );
 }
 

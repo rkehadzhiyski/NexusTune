@@ -39,14 +39,19 @@ const Home = () => {
 
     return (
         <div className={styles['home-page']}>
+            <p>
+                Welcome to Nexus Tunes, where every story finds its voice. Dive into a world of captivating narratives,
+                insightful conversations, and thought-provoking episodes curated just for you. Whether you're a seasoned enthusiast or a curious explorer,
+                embark on a journey of discovery with our diverse collection of podcasts. Tune in, explore, and let the stories unfold.
+            </p>
             {latestPodcasts.length >= 4 &&
                 < Latest latestPodcasts={latestPodcasts} />
             }
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
+            <section style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
                 {podcasts.map((podcast) => (
                     <PodcastCard key={podcast._id} podcast={podcast} />
                 ))}
-            </div>
+            </section>
         </div>
     );
 }

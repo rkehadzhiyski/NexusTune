@@ -10,7 +10,8 @@ interface Podcast {
     _id: number;
     name: string;
     description: string;
-    image: string
+    image: string;
+    createdAt: string;
 }
 
 const Home = () => {
@@ -38,7 +39,7 @@ const Home = () => {
 
     return (
         <div className={styles['home-page']}>
-            {latestPodcasts.length > 0 &&
+            {latestPodcasts.length >= 4 &&
                 < Latest latestPodcasts={latestPodcasts} />
             }
             <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>

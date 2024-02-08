@@ -19,7 +19,7 @@ interface PodcastCardProps {
 const PodcastCard: React.FC<PodcastCardProps> = ({ podcast }) => {
   const navigate = useNavigate();
 
-  const description = truncateText(podcast.description);
+  const description = truncateText(podcast.description , 130);
 
   const handleClick = () => {
     navigate(`/podcast/${podcast._id}`);

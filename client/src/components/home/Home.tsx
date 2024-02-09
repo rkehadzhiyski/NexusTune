@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+
 import * as podcastService from '../../services/podcastService';
+import * as episodeService from '../../services/episodeService';
 
 import styles from './home.module.css';
 
@@ -14,9 +16,18 @@ interface Podcast {
     createdAt: string;
 }
 
+interface Episode {
+    _id: number;
+    name: string;
+    description: string;
+    image: string;
+    createdAt: string;
+}
+
 const Home = () => {
     const [podcasts, setPodcasts] = useState<Podcast[]>([]);
     const [latestPodcasts, setLatestPodcasts] = useState<Podcast[]>([]);
+    const [latestEpisodes, setLatestEpisodes] = useState<Episode[]>([]);
 
     useEffect(() => {
         podcastService.getLatest()
@@ -25,6 +36,14 @@ const Home = () => {
             })
             .catch(error => {
                 console.error("Error fetching podcasts:", error);
+            });
+
+        episodeService.getLatest()
+            .then(response => {
+                setLatestEpisodes(response.data);
+            })
+            .catch(error => {
+                console.error("Error fetching episodes:", error);
             });
 
         podcastService.getAll()
@@ -50,7 +69,14 @@ const Home = () => {
             {latestPodcasts.length > 0 &&
                 <>
                     <div className={styles['border']}></div>
-                    < Latest type='podcast' latestPodcasts={latestPodcasts} />
+                    < Latest type='podcast' latest={latestPodcasts} />
+                    <div className={styles['border']}></div>
+                </>
+            }
+
+            {latestEpisodes.length > 0 &&
+                <>
+                    < Latest type='episode' latest={latestEpisodes} />
                     <div className={styles['border']}></div>
                 </>
             }

@@ -25,7 +25,7 @@ const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
     }
     return (
         <section className={styles['top-section']}>
-            <h2>Latest Podcasts</h2>
+            <h1>Latest Podcasts</h1>
             <section className={styles['latest-container']} onClick={() => navigateTo(latestPodcasts[0]._id)}>
                 <Image className={styles['podcast-image']} src={latestPodcasts[0].image} rounded />
                 <div className={styles['podcast-info']}>

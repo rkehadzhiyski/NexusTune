@@ -1,4 +1,4 @@
-.latest-container {
+.top-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,7 +6,7 @@
     width: 85rem;
 }
 
-.top-section {
+.latest-container {
     display: flex;
     border-radius: 8px;
     width: 85rem;

@@ -3,6 +3,7 @@ import styles from './latest.module.css';
 import Image from 'react-bootstrap/Image';
 import { formatDate } from "../../utils/formatDate";
 import { truncateText } from "../../utils/trancateText";
+import { useNavigate } from 'react-router-dom';
 
 interface Podcast {
     _id: number;
@@ -17,28 +18,31 @@ interface PodcastCardProps {
 }
 
 const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
-    const firstPodcast = latestPodcasts.shift();
+    const navigate = useNavigate();
 
+    const navigateTo = (podcasdtId: number) => {
+        navigate(`/podcast/${podcasdtId}`)
+    }
     return (
-        <div className={styles['latest-container']}>
+        <section className={styles['top-section']}>
             <h2>Latest Podcasts</h2>
-            <section className={styles['top-section']}>
-                <Image className={styles['podcast-image']} src={firstPodcast?.image} rounded />
+            <section className={styles['latest-container']} onClick={() => navigateTo(latestPodcasts[0]._id)}>
+                <Image className={styles['podcast-image']} src={latestPodcasts[0].image} rounded />
                 <div className={styles['podcast-info']}>
                     <div>
-                        <h3>{firstPodcast?.name}</h3>
+                        <h3>{latestPodcasts[0].name}</h3>
                     </div>
                     <div className={styles['podcast-description']}>
-                        <p>{firstPodcast?.description}</p>
+                        <p>{latestPodcasts[0].description}</p>
                     </div>
                     <div className={styles['podcast-more-info']}>
-                        <p>{formatDate(firstPodcast!.createdAt)}</p>
+                        <p>{formatDate(latestPodcasts[0].createdAt)}</p>
                     </div>
                 </div>
             </section>
             <section className={styles['bottom-section']}>
-                {latestPodcasts.map(podcast => (
-                    <div key={podcast._id} className={styles['additional-podcast-container']}>
+                {latestPodcasts.slice(1).map(podcast => (
+                    <div key={podcast._id} className={styles['additional-podcast-container']} onClick={() => { navigateTo(podcast._id) }}>
                         <Image className={styles['additional-podcast-image']} src={podcast.image} />
                         <div className={styles['info-section']}>
                             <div>
@@ -54,7 +58,7 @@ const Latest: React.FC<PodcastCardProps> = ({ latestPodcasts }) => {
                     </div>
                 ))}
             </section>
-        </div>
+        </section>
     );
 }
 

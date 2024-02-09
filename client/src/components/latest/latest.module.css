@@ -16,6 +16,16 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.latest-container-episodes {
+    display: flex;
+    border-radius: 8px;
+    width: 85rem;
+    gap: 20px;
+    padding-left: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .bottom-section {
     display: flex;
     gap: 20px;

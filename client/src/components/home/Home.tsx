@@ -48,7 +48,11 @@ const Home = () => {
                 </p>
             </div>
             {latestPodcasts.length > 0 &&
-                < Latest latestPodcasts={latestPodcasts} />
+                <>
+                    <div className={styles['border']}></div>
+                    < Latest latestPodcasts={latestPodcasts} />
+                    <div className={styles['border']}></div>
+                </>
             }
             <section style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
                 {podcasts.map((podcast) => (

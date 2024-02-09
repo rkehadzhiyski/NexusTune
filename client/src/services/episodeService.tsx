@@ -24,6 +24,6 @@ export const getOne = async (episodeId: string) => {
 };
 
 export const getLatest = async() =>{
-    const result = await axios.get(`${baseUrl}/latest`);
+    const result = await axios.get(`${baseUrl}/latest/episodes`);
     return result;
 }

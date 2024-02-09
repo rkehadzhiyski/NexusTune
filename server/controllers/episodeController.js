@@ -28,7 +28,7 @@ router.get('/:episodeId', async(req,res) =>{
     }
 });
 
-router.get('/latest', async (req, res) => {
+router.get('/latest/episodes', async (req, res) => {
     try {
         const episodes = await episodeManager.getLatest();
         res.json(episodes);

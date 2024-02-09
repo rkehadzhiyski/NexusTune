@@ -4,7 +4,6 @@ import styles from './episodeCard.module.css';
 import { formatDate } from '../../utils/formatDate'
 import { formatDuration } from '../../utils/formatDuration';
 
-import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
 
 interface Episode {

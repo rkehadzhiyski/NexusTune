@@ -4,6 +4,7 @@ import Image from 'react-bootstrap/Image';
 import { formatDate } from "../../utils/formatDate";
 import { truncateText } from "../../utils/trancateText";
 import { useNavigate } from 'react-router-dom';
+import { formatDuration } from '../../utils/formatDuration';
 
 interface Podcast {
     _id: number;
@@ -11,6 +12,7 @@ interface Podcast {
     description: string;
     image: string;
     createdAt: string;
+    duration?: number | undefined;
 }
 
 interface PodcastCardProps {
@@ -63,7 +65,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                                 <p>{latest[0].description}</p>
                             </div>
                             <div className={styles['podcast-more-info']}>
-                                <p>{formatDate(latest[0].createdAt)}</p>
+                            <p>{latest[0].duration !== undefined ? formatDuration(latest[0].duration) : ''} | {formatDate(latest[0].createdAt)}</p>
                             </div>
                         </div>
                         <Image className={styles['podcast-image']} src={latest[0].image} rounded />
@@ -83,7 +85,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                                 <p>{truncateText(podcast.description, 145)}</p>
                             </div>
                             <div className={styles['additional-podcast-more-info']}>
-                                <p>{formatDate(podcast.createdAt)}</p>
+                            <p>{podcast.duration !== undefined ? formatDuration(podcast.duration) : ''} | {formatDate(podcast.createdAt)}</p>
                             </div>
                         </div>
                     </div>

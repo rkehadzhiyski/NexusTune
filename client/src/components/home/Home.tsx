@@ -50,7 +50,7 @@ const Home = () => {
             {latestPodcasts.length > 0 &&
                 <>
                     <div className={styles['border']}></div>
-                    < Latest latestPodcasts={latestPodcasts} />
+                    < Latest type='podcast' latestPodcasts={latestPodcasts} />
                     <div className={styles['border']}></div>
                 </>
             }

@@ -28,4 +28,16 @@ router.get('/:episodeId', async(req,res) =>{
     }
 });
 
+router.get('/latest', async (req, res) => {
+    try {
+        const episodes = await episodeManager.getLatest();
+        res.json(episodes);
+    } catch (error) {
+        res.status(400).json({
+            message: 'There was an error:',
+            error: error.message,
+        });
+    }
+});
+
 module.exports = router;

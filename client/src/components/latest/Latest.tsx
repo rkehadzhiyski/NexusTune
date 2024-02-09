@@ -15,10 +15,10 @@ interface Podcast {
 
 interface PodcastCardProps {
     type: string;
-    latestPodcasts: Podcast[];
+    latest: Podcast[];
 }
 
-const Latest: React.FC<PodcastCardProps> = ({ type, latestPodcasts }) => {
+const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
     const navigate = useNavigate();
 
     const navigateTo = (podcasdtId: number) => {
@@ -30,25 +30,45 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latestPodcasts }) => {
             {type == 'podcast' &&
                 <>
                     <h1>Latest Podcasts</h1>
-                    <section className={styles['latest-container']} onClick={() => navigateTo(latestPodcasts[0]._id)}>
-                        <Image className={styles['podcast-image']} src={latestPodcasts[0].image} rounded />
+                    <section className={styles['latest-container']} onClick={() => navigateTo(latest[0]._id)}>
+                        <Image className={styles['podcast-image']} src={latest[0].image} rounded />
                         <div className={styles['podcast-info']}>
                             <div>
-                                <h3>{latestPodcasts[0].name}</h3>
+                                <h3>{latest[0].name}</h3>
                             </div>
                             <div className={styles['podcast-description']}>
-                                <p>{latestPodcasts[0].description}</p>
+                                <p>{latest[0].description}</p>
                             </div>
                             <div className={styles['podcast-more-info']}>
-                                <p>{formatDate(latestPodcasts[0].createdAt)}</p>
+                                <p>{formatDate(latest[0].createdAt)}</p>
                             </div>
                         </div>
                     </section>
                 </>
             }
 
+            {type == 'episode' &&
+                <>
+                    <h1>Latest Episodes</h1>
+                    <section className={styles['latest-container-episodes']} onClick={() => navigateTo(latest[0]._id)}>
+                        <div className={styles['podcast-info']}>
+                            <div>
+                                <h3>{latest[0].name}</h3>
+                            </div>
+                            <div className={styles['podcast-description']}>
+                                <p>{latest[0].description}</p>
+                            </div>
+                            <div className={styles['podcast-more-info']}>
+                                <p>{formatDate(latest[0].createdAt)}</p>
+                            </div>
+                        </div>
+                        <Image className={styles['podcast-image']} src={latest[0].image} rounded />
+                    </section>
+                </>
+            }
+
             <section className={styles['bottom-section']}>
-                {latestPodcasts.slice(1).map(podcast => (
+                {latest.slice(1).map(podcast => (
                     <div key={podcast._id} className={styles['additional-podcast-container']} onClick={() => { navigateTo(podcast._id) }}>
                         <Image className={styles['additional-podcast-image']} src={podcast.image} />
                         <div className={styles['info-section']}>

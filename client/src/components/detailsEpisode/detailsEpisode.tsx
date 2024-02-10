@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import * as episodeService from '../../services/episodeService';
 
@@ -17,12 +17,14 @@ interface Episode {
     audio: string;
     createdAt: string;
     duration: number;
+    podcastId: string;
 }
 
 const DetailsEpisode = () => {
     const [episode, setEpisode] = useState<Episode>();
+    const navigate = useNavigate();
     const params = useParams();
-    const { episodeId } = params;
+    const { episodeId, podcastName } = params;
 
     useEffect(() => {
         if (episodeId) {
@@ -34,6 +36,10 @@ const DetailsEpisode = () => {
                 });
         }
     }, [episodeId])
+
+    const navigateTo = () => {
+        navigate(`/podcast/${episode?.podcastId}`);
+    }
 
     return (
         // <div className={styles['episode-details-page']}>
@@ -63,7 +69,7 @@ const DetailsEpisode = () => {
                 </div>
                 <div className={styles['episode-name-container']}>
                     <div><h2>{episode?.name}</h2></div>
-                    <div><h5>Ime na podcasta</h5></div>
+                    <div className={styles['podcast-name']} onClick={navigateTo}><h5>{podcastName}</h5></div>
                 </div>
             </section>
 

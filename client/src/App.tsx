@@ -25,7 +25,7 @@ const App = () => {
                         <Route path="/create-podcast" element={<CreatePodcast />} ></Route>
                         <Route path="/create-episode" element={<CreateEpisode />} ></Route>
                         <Route path="/podcast/:podcastId" element={<DetailsPodcast />} ></Route>
-                        <Route path="/episode/:episodeId" element={<DetailsEpisode />} ></Route>
+                        <Route path="/episode/:podcastName/:episodeId" element={<DetailsEpisode />} ></Route>
                     </Routes>
                 </div>
             </div>

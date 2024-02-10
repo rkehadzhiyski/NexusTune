@@ -18,13 +18,16 @@ interface Episode {
 
 interface PodcastCardProps {
     episode: Episode;
+    podcast?: string;
 }
 
-const EpisodeCard: React.FC<PodcastCardProps> = ({ episode }) => {
+const EpisodeCard: React.FC<PodcastCardProps> = ({ podcast, episode }) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/episode/${episode._id}`);
+        if (podcast) {
+            navigate(`/episode/${podcast}/${episode._id}`);
+        }
     };
     return (
         // <Card className={styles['card-container']} onClick={handleClick}>

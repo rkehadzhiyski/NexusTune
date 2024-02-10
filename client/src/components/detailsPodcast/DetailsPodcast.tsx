@@ -63,7 +63,7 @@ const DetailsPodcast = () => {
                         <div className={styles['dash']}></div>
                         <div className={styles['episodes']}>
                             {episodes?.map(episode => (
-                                <EpisodeCard key={episode._id} episode={episode} />
+                                <EpisodeCard key={episode._id} episode={episode} podcast={podcast?.name}/>
                             ))}
                         </div>
                     </>

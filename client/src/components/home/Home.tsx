@@ -68,16 +68,16 @@ const Home = () => {
             </div>
             {latestPodcasts.length > 0 &&
                 <>
-                    <div className={styles['border']}></div>
+                    <div className={styles['line']}></div>
                     < Latest type='podcast' latest={latestPodcasts} />
-                    <div className={styles['border']}></div>
+                    <div className={styles['line']}></div>
                 </>
             }
 
             {latestEpisodes.length > 0 &&
                 <>
                     < Latest type='episode' latest={latestEpisodes} />
-                    <div className={styles['border']}></div>
+                    <div className={styles['line']}></div>
                 </>
             }
             <section style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>

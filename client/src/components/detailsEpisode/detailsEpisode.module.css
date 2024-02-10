@@ -72,6 +72,12 @@
     padding-left: 30px;
 }
 
+.podcast-name:hover{
+    font-size: 15px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .player-container {
     width: 60rem;
 }
@@ -81,7 +87,7 @@
 }
 
 .episode-description{
-    width: 60rem;
+    width: 40rem;
 }
 
 .line {

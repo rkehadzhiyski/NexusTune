@@ -13,6 +13,8 @@ interface Podcast {
     image: string;
     createdAt: string;
     duration?: number | undefined;
+    podcastId?: number | undefined;
+    podcastName?: string | undefined;
 }
 
 interface PodcastCardProps {
@@ -24,11 +26,11 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
     const navigate = useNavigate();
 
     const navigateToPodcast = (id: number) => {
-        navigate(`/podcast/${id}`)
+        navigate(`/podcast/${id}`);
     }
 
-    const navigateToEpisode = (id: number) => {
-        navigate(`/episode/${id}`)
+    const navigateToEpisode = (podcastName: string, episodeId: number) => {
+        navigate(`/episode/${podcastName}/${episodeId}`);
     }
 
     return (
@@ -56,7 +58,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
             {type == 'episode' &&
                 <>
                     <h1>Latest Episodes</h1>
-                    <section className={styles['latest-container-episodes']} onClick={() => navigateToEpisode(latest[0]._id)}>
+                    <section className={styles['latest-container-episodes']} onClick={() => navigateToEpisode(latest[0].podcastName!, latest[0]._id)}>
                         <div className={styles['podcast-info']}>
                             <div>
                                 <h3>{latest[0].name}</h3>
@@ -65,7 +67,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                                 <p>{latest[0].description}</p>
                             </div>
                             <div className={styles['podcast-more-info']}>
-                            <p>{latest[0].duration !== undefined ? formatDuration(latest[0].duration) : ''} | {formatDate(latest[0].createdAt)}</p>
+                                <p>{latest[0].duration !== undefined ? formatDuration(latest[0].duration) : ''} | {formatDate(latest[0].createdAt)}</p>
                             </div>
                         </div>
                         <Image className={styles['podcast-image']} src={latest[0].image} rounded />
@@ -75,7 +77,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
 
             <section className={styles['bottom-section']}>
                 {latest.slice(1).map(podcast => (
-                    <div key={podcast._id} className={styles['additional-podcast-container']} onClick={type === 'podcast' ? () => navigateToPodcast(podcast._id) : () => navigateToEpisode(podcast._id)}>
+                    <div key={podcast._id} className={styles['additional-podcast-container']} onClick={type === 'podcast' ? () => navigateToPodcast(podcast._id) : () => navigateToEpisode(podcast.podcastName!, podcast._id)}>
                         <Image className={styles['additional-podcast-image']} src={podcast.image} />
                         <div className={styles['info-section']}>
                             <div>
@@ -85,7 +87,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                                 <p>{truncateText(podcast.description, 145)}</p>
                             </div>
                             <div className={styles['additional-podcast-more-info']}>
-                            <p>{podcast.duration !== undefined ? `${formatDuration(podcast.duration)} |` : ''}  {formatDate(podcast.createdAt)}</p>
+                                <p>{podcast.duration !== undefined ? `${formatDuration(podcast.duration)} |` : ''}  {formatDate(podcast.createdAt)}</p>
                             </div>
                         </div>
                     </div>

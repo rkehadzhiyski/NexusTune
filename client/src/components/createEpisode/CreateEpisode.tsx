@@ -36,6 +36,7 @@ interface EpisodeData {
     image: string;
     audio: string;
     podcastId: string;
+    podcastName: string;
     description: string;
     createdAt: string;
     duration: number,
@@ -73,6 +74,7 @@ const schema = yup.object().shape({
 
 const CreateEpisode = () => {
     const [podcasts, setPodcasts] = useState<PodcastData[]>([]);
+    const [selectedPodcast, setSelectedPodcast] = useState<PodcastData>();
     const [episodeImage, setEpisodeImage] = useState<File>();
     const [episodeAudio, setEpisodeAudio] = useState<File>();
     const {
@@ -101,9 +103,11 @@ const CreateEpisode = () => {
 
             if (imageResponse?.url && audioResponse?.url) {
 
+                const selectedPodcastName = selectedPodcast?.name;
+
                 const audioElement = new Audio(audioResponse.url);
 
-                audioElement.addEventListener('loadedmetadata', async() => {
+                audioElement.addEventListener('loadedmetadata', async () => {
                     const durationInSeconds = audioElement.duration;
 
                     const episodeData: EpisodeData = {
@@ -114,11 +118,13 @@ const CreateEpisode = () => {
                         createdAt: new Date().toISOString(),
                         duration: durationInSeconds,
                         podcastId: data.selectedPodcast,
+                        podcastName: selectedPodcastName!,
                         ownerId: user.userId,
                     }
 
                     const episodeId = await episodeService.create(episodeData);
                     podcastService.updatePodcastEpisodes(data.selectedPodcast, { episodes: episodeId.data });
+
                 });
             }
 
@@ -203,11 +209,22 @@ const CreateEpisode = () => {
                                             </Form.Group>
                                         </div>
                                     </div>
-                                    <Form.Select className='mb-3' aria-label="Test" {...register('selectedPodcast')}>
+                                    <Form.Select className='mb-3'
+                                        aria-label="Test"
+                                        {...register('selectedPodcast', {
+                                            onChange: (e) => {
+                                                const selectedId = e.target.value;
+                                                const selectedPodcastObj = podcasts.find(podcast => podcast._id === selectedId);
+                                                setSelectedPodcast(selectedPodcastObj);
+                                            }
+                                        })}
+                                    >
                                         <option value=''>Select podcast</option>
-                                        {podcasts.map(podcast => (
-                                            <option key={podcast._id} value={podcast._id}>{podcast.name}</option>
-                                        ))}
+                                        {
+                                            podcasts.map(podcast => (
+                                                <option key={podcast._id} value={podcast._id}>{podcast.name}</option>
+                                            ))
+                                        }
                                     </Form.Select>
                                     <Form.Text className="text-danger">{errors['selectedPodcast']?.message}</Form.Text>
                                     <FloatingLabel className='mb-3' label="Description" controlId="formGroupDescription">
@@ -231,8 +248,9 @@ const CreateEpisode = () => {
                         </div >
                     }
                 </>
-            )}
-        </div>
+            )
+            }
+        </div >
     )
 };
 

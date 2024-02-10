@@ -29,6 +29,10 @@ const episodeSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Podcast',
     },
+    podcastName: {
+        type: String,
+        required: true,
+    },
     ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User',

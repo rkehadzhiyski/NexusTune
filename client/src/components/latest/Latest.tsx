@@ -85,7 +85,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                                 <p>{truncateText(podcast.description, 145)}</p>
                             </div>
                             <div className={styles['additional-podcast-more-info']}>
-                            <p>{podcast.duration !== undefined ? formatDuration(podcast.duration) : ''} | {formatDate(podcast.createdAt)}</p>
+                            <p>{podcast.duration !== undefined ? `${formatDuration(podcast.duration)} |` : ''}  {formatDate(podcast.createdAt)}</p>
                             </div>
                         </div>
                     </div>

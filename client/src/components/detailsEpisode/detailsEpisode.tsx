@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import * as episodeService from '../../services/episodeService';
+
 import styles from './detailsEpisode.module.css';
+import 'react-h5-audio-player/lib/styles.css';
 
 import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import { Image } from "react-bootstrap";
 
 interface Episode {
     _id: number;
@@ -34,23 +36,56 @@ const DetailsEpisode = () => {
     }, [episodeId])
 
     return (
+        // <div className={styles['episode-details-page']}>
+        //     <div className={styles['episode-details-container']}>
+        //         <h1>{episode?.name}</h1>
+        //         <AudioPlayer
+        //             autoPlayAfterSrcChange={false}
+        //             src={episode?.audio}
+        //             volume={0.5}
+        //         />
+        //         <div className={styles['episode-details-bottom-section']}>
+        //             <div className={styles['episode-description']}>
+        //                 <p>{episode?.description}</p>
+        //             </div>
+        //             <div className={styles['user-description']}>
+        //                 <img className={styles['user-photo']} src='https://wallpapers.com/images/featured/cute-aesthetic-profile-pictures-pjfl391j3q0f7rlz.jpg' alt='profile-photo' />
+        //                 <p>Username</p>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </div>
+
         <div className={styles['episode-details-page']}>
-            <div className={styles['episode-details-container']}>
-                <h1>{episode?.name}</h1>
-                <AudioPlayer
-                    autoPlayAfterSrcChange={false}
-                    src={episode?.audio}
-                    volume={0.5}
-                />
-                <div className={styles['episode-details-bottom-section']}>
-                    <div className={styles['episode-description']}>
-                        <p>{episode?.description}</p>
-                    </div>
-                    <div className={styles['user-description']}>
-                        <img className={styles['user-photo']} src='https://wallpapers.com/images/featured/cute-aesthetic-profile-pictures-pjfl391j3q0f7rlz.jpg' alt='profile-photo' />
-                        <p>Username</p>
-                    </div>
+            <section className={styles['top-section']}>
+                <div>
+                    <Image className={styles['episode-image']} src={episode?.image} alt='Episode-image' />
                 </div>
+                <div className={styles['episode-name-container']}>
+                    <div><h2>{episode?.name}</h2></div>
+                    <div><h5>Ime na podcasta</h5></div>
+                </div>
+            </section>
+
+            <div className={styles['line']}></div>
+            <div className={styles['gradient']}>
+                <section className={styles['middle-section']}>
+                    <div className={styles['player-container']}>
+                        <AudioPlayer
+                            autoPlayAfterSrcChange={false}
+                            src={episode?.audio}
+                            volume={0.5}
+                            style={{ boxShadow: 'none' }}
+                        />
+                    </div>
+                </section>
+
+                <section className={styles['bottom-section']}>
+                    <h2 className={styles['episode-description-title']}>Episode Description</h2>
+                    <p className={styles['episode-description']}>
+                        {episode?.description}
+                    </p>
+                </section>
             </div>
         </div>
     );

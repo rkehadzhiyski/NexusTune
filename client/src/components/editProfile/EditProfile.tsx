@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -54,31 +54,22 @@ const schema = yup.object().shape({
 
 const EditProfile: React.FC<Props> = (props) => {
     const [userImage, setUserImage] = useState<string>();
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
+        defaultValues: {
+            description: props.user.description,
+        }
     });
     const {
         updateAuth,
     } = useContext(AuthContext);
 
-    useEffect(() => {
-        if (props.user.description) {
-            setValue('description', props.user.description);
-        }
-
-    }, [props, setValue]);
-
     const onSubmit = async (data: FormData) => {
-        const description = props.user.description;
 
         const userData: UserUpdate = {
             image: userImage,
-            description: description,
+            description: data.description,
         };
-
-        if (data.description) {
-            userData.description = data.description;
-        }
 
         if (userImage) {
             updateAuth(userImage);
@@ -142,7 +133,6 @@ const EditProfile: React.FC<Props> = (props) => {
                             type="text"
                             {...register('description')}
                             placeholder="Description"
-                            autoComplete="description"
                         />
                         <Form.Text className="text-danger">{errors['description']?.message}</Form.Text>
                     </FloatingLabel>

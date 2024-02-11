@@ -13,7 +13,11 @@ mongoose.connect(process.env.MONGODB_URI)
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: ['https://nexus-tune.vercel.app/'],
+    methods: ['POST', 'PUT', 'GET'],
+    creadentials: true
+}));
 app.use(auth);
 
 app.get('/', (req, res) => {

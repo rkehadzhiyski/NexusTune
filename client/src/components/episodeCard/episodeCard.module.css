@@ -1,47 +1,41 @@
-.card-container {
-    text-align: center;
-    width: 25rem;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    cursor: pointer;
-}
-
-.card-image {
-    height: 16rem;
-    object-fit: fill;
-}
-
-.episode-card-container{
+.episode-card-container {
     display: flex;
-    width: 70rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 85rem;
     padding-top: 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid #5065a8;
 }
 
-.card-inner-container{
+.card-inner-container {
     display: flex;
-    gap: 30px;
-    width: 100%;
+    border-radius: 8px;
+    width: 85rem;
+    gap: 20px;
+    padding-right: 5px;
     cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.card-info-container{
+.card-info-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding-top: 10px;
+    justify-content: space-around;
+    padding: 18px;
 }
 
-.episode-description{
+.episode-description {
     height: 100%;
 }
 
-.episode-more-info{
+.episode-more-info {
     display: flex;
+    font-style: oblique;
 }
 
 .episode-image {
-    height: 16rem;
-    object-fit: fill;
+    height: 20rem;
+    width: 35rem;
 }

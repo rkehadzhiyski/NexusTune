@@ -41,9 +41,7 @@ const EpisodeCard: React.FC<PodcastCardProps> = ({ podcast, episode }) => {
 
         <div className={styles['episode-card-container']} >
             <div className={styles['card-inner-container']} onClick={handleClick}>
-                <div>
-                    <Image className={styles['episode-image']} src={episode.image} rounded />
-                </div>
+                <Image className={styles['episode-image']} src={episode.image} rounded />
                 <div className={styles['card-info-container']}>
                     <div>
                         <h3>{episode.name}</h3>

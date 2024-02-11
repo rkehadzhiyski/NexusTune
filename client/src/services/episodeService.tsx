@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://nexus-tunes-server.onrender.com/episodes';
+const baseUrl = 'https://localhost:8888/episodes';
 
 interface uploadData {
     name: string;

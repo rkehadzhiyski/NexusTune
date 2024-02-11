@@ -14,12 +14,12 @@ mongoose.connect('mongodb+srv://radito1:radoslav@nexus-tunes.yafxs8a.mongodb.net
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cors({
-    origin: ['https://nexus-tune.vercel.app/'],
-    methods: ['POST', 'GET', 'PUT'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']
-}));
+// app.use(cors({
+//     origin: ['https://nexus-tune.vercel.app/'],
+//     methods: ['POST', 'GET', 'PUT'],
+//     credentials: true,
+//     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']
+// }));
 app.use(auth);
 app.use(allowCors);
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'nexus-tune-server-l93af6k7m-radito0824-abvbgs-projects.vercel.app/podcasts';
+const baseUrl = 'https://nexus-tune.vercel.app/podcasts';
 
 interface uploadData {
     name: string;

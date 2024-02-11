@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = '/users';
+const baseUrl = 'nexus-tune-server.vercel.app/users';
 
 interface UserCredentials {
     email: string;

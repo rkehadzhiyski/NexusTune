@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes');
 const { auth } = require('./middlewares/authMiddleware');
+const allowCors  = require('./middlewares/authMiddleware');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']
 }));
 app.use(auth);
+app.use(allowCors);
 
 app.get('/', (req, res) => {
     res.send('RESTful service');

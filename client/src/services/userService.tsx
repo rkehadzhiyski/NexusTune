@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'https://nexus-tunes-server.vercel.app/users';
+const baseUrl = 'https://nexus-tunes-server.onrender.com/users';
 
 interface UserCredentials {
     email: string;

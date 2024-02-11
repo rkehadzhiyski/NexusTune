@@ -1,14 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-require('dotenv').config();
 
 const routes = require('./routes');
 const { auth } = require('./middlewares/authMiddleware');
 
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect('mongodb+srv://radito1:radoslav@nexus-tunes.yafxs8a.mongodb.net/nexus-tunes')
     .then(() => console.log('DB connected'))
     .catch(error => console.log(error));
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'https://localhost:8888/users';
+const baseUrl = 'http://localhost:8888/users';
 
 interface UserCredentials {
     email: string;

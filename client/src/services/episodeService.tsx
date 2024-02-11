@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://localhost:8888/episodes';
+const baseUrl = 'http://localhost:8888/episodes';
 
 interface uploadData {
     name: string;

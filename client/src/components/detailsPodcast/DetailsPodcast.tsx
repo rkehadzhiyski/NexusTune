@@ -60,7 +60,7 @@ const DetailsPodcast = () => {
                 <h2 className={styles['title']}>Episodes</h2>
                 {episodes && episodes?.length > 0 &&
                     <>
-                        <div className={styles['dash']}></div>
+                        <div className={styles['line']}></div>
                         <div className={styles['episodes']}>
                             {episodes?.map(episode => (
                                 <EpisodeCard key={episode._id} episode={episode} podcast={podcast?.name}/>

@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI)
 
     app.use(cors(
         {
-        origin: ['*'],
+        origin: ['https://nexus-tune.vercel.app'],
         methods: ['POST', 'GET', 'PUT'],
         credentials: true,
         allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']

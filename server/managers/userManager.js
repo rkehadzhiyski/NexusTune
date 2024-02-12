@@ -22,16 +22,18 @@ exports.login = async ({ email, password }) => {
         throw new Error('Invalid username or password');
     }
 
-    bcrypt.compare(password, user.password)
-        .then(function () {
-            if (bool == false) {
-                throw new Error('Invalid username or password');
-            } else {
-                const result = getAuthResult(user);
+    console.log('Input password:', password);
+    console.log('Password from database:', user.password);
 
-                return result;
-            }
-        });
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (!isValid) {
+        throw new Error('Invalid username or password');
+    }
+
+    const result = getAuthResult(user);
+
+    return result;
 };
 
 exports.getUploadedPodcasts = async (userId) => {

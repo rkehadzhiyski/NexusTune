@@ -1,5 +1,5 @@
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 exports.register = async ({ email, password, username }) => {
@@ -19,12 +19,14 @@ exports.login = async ({ email, password }) => {
     const user = await User.findOne({ email });
 
     if (!user) {
+        console.log('nqma user')
         throw new Error('Invalid username or password');
     }
 
     const isValid = await bcrypt.compare(password, user.password);
 
     if (!isValid) {
+        console.log('isInvalid')
         throw new Error('Invalid username or password');
     }
 
@@ -76,7 +78,6 @@ function getAuthResult(user) {
         userId: user.id,
         email: user.email,
     };
-    //TODO: Make it async
     const token = jwt.sign(payload, 'SECRETSECRET', { expiresIn: '1d' });
 
     const result = {

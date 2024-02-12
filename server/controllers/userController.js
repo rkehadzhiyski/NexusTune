@@ -8,7 +8,6 @@ router.post('/register', async (req, res) => {
 
         res.json(result);
 
-        //TODO: Handle error properly!
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',

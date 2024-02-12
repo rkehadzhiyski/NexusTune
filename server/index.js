@@ -24,7 +24,7 @@ mongoose.connect(process.env.MONGO_URI)
         allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']
     }
     ));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(auth);
 

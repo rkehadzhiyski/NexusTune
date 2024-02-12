@@ -33,7 +33,6 @@ const Home = () => {
         podcastService.getLatest()
             .then(response => {
                 setLatestPodcasts(response.data);
-                console.log(response.data)
             })
             .catch(error => {
                 console.error("Error fetching podcasts:", error);

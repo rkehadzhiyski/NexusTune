@@ -19,21 +19,12 @@ exports.login = async ({ email, password }) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-        console.log('nqma user')
         throw new Error('Invalid username or password');
     }
 
-    const isValid = false;
-
-    bcrypt.compare(password, user.password)
-    .then(response=>{
-        response.data
-        console.log(response.data)
-        isValid = response.data
-    })
+    const isValid = bcrypt.compareSync(password, user.password);
 
     if (!isValid) {
-        console.log('isInvalid')
         throw new Error('Invalid username or password');
     }
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://tired-school-uniform-boa.cyclic.app/episodes';
+const baseUrl = 'http://tired-school-uniform-boa.cyclic.app/episodes';
 
 interface uploadData {
     name: string;

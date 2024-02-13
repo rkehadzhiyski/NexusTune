@@ -81,7 +81,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                         <Image className={styles['additional-podcast-image']} src={podcast.image} />
                         <div className={styles['info-section']}>
                             <div>
-                                <h4>{podcast.name}</h4>
+                                <h4>{truncateText(podcast.name, 25)}</h4>
                             </div>
                             <div className={styles['additional-podcast-description']}>
                                 <p>{truncateText(podcast.description, 145)}</p>

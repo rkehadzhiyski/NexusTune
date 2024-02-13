@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://tired-school-uniform-boa.cyclic.app/episodes';
+const baseUrl = import.meta.env.VITE_BASE_EPISODE_URL;
 
 interface uploadData {
     name: string;
@@ -14,7 +14,7 @@ interface uploadData {
 }
 
 export const create = async (data: uploadData) => {
-    const result = await axios.post(baseUrl, data);
+    const result = await axios.post(baseUrl!, data);
     return result;
 };
 
@@ -23,7 +23,7 @@ export const getOne = async (episodeId: string) => {
     return result;
 };
 
-export const getLatest = async() =>{
+export const getLatest = async () => {
     const result = await axios.get(`${baseUrl}/latest/episodes`);
     return result;
 }

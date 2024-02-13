@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'https://tired-school-uniform-boa.cyclic.app/podcasts';
+const baseUrl = import.meta.env.VITE_BASE_PODCAST_URL;
 
 interface uploadData {
     name: string;
@@ -14,7 +14,7 @@ interface updateEpisode {
 }
 
 export const create = async (data: uploadData) => {
-    const result = await axios.post(baseUrl, data);
+    const result = await axios.post(baseUrl!, data);
     return result;
 };
 
@@ -24,7 +24,7 @@ export const getOne = async (podcastId: string) => {
 }
 
 export const getAll = async () => {
-    const result = await axios.get(baseUrl);
+    const result = await axios.get(baseUrl!);
     return result;
 }
 
@@ -36,14 +36,14 @@ export const getAllOfOwner = async (ownerId: string) => {
 export const updatePodcastEpisodes = async (podcastId: string, updatedData: updateEpisode) => {
     const result = await axios.put(`${baseUrl}/update/${podcastId}`, updatedData);
     return result;
-} 
+}
 
-export const getEpisodes = async(podcastId:string) =>{
+export const getEpisodes = async (podcastId: string) => {
     const result = await axios.get(`${baseUrl}/${podcastId}`);
     return result;
 }
 
-export const getLatest = async() =>{
+export const getLatest = async () => {
     const result = await axios.get(`${baseUrl}/latest`);
     return result;
 }

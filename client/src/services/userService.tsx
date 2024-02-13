@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = 'https://tired-school-uniform-boa.cyclic.app/users';
+const baseUrl = import.meta.env.VITE_BASE_USER_URL;
 
 interface UserCredentials {
     email: string;
@@ -10,7 +10,7 @@ interface UserCredentials {
 interface UserUpdate {
     image?: string;
     description?: string;
-    uploadedPodcasts? : unknown;
+    uploadedPodcasts?: unknown;
 }
 
 export const login = async (credentials: UserCredentials) => {
@@ -36,14 +36,14 @@ export const editUser = async (userId: string, updatedData: UserUpdate) => {
 export const updateUserPodcasts = async (userId: string, updatedData: UserUpdate) => {
     const result = await axios.put(`${baseUrl}/update/${userId}`, updatedData);
     return result;
-} 
+}
 
-export const getOne = async(userId:string) => {
+export const getOne = async (userId: string) => {
     const result = await axios.get(`${baseUrl}/user/${userId}`);
     return result;
 }
 
-export const getUploadedPodcast = async(userId:string) => {
+export const getUploadedPodcast = async (userId: string) => {
     const result = await axios.get(`${baseUrl}/${userId}`);
     return result;
 }

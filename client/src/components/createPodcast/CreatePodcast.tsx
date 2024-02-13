@@ -12,6 +12,7 @@ import Form from 'react-bootstrap/Form';
 import { FloatingLabel } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import { uploadFile } from '../../services/storageService';
+import { useNavigate } from 'react-router-dom';
 
 interface FormData {
     name: string;
@@ -46,6 +47,7 @@ const schema = yup.object().shape({
 });
 
 const CreatePodcast = () => {
+    const navigate = useNavigate();
     const [podcastImage, setPodcastImage] = useState<File>();
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
@@ -70,6 +72,7 @@ const CreatePodcast = () => {
 
                 const podcastId = await podcastService.create(podcastData);
                 userService.updateUserPodcasts(user.userId, { uploadedPodcasts: podcastId.data });
+                navigate(`/podcast/${podcastId.data}`)
             }
 
         } catch (error) {

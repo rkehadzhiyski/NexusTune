@@ -13,6 +13,7 @@ import styles from './createEpisode.module.css';
 import { Button, FloatingLabel, Form } from "react-bootstrap";
 import { Spinner } from 'react-bootstrap';
 import AuthContext from '../../contexts/authContext';
+import { useNavigate } from "react-router-dom";
 
 interface PodcastData {
     name: string;
@@ -77,6 +78,7 @@ const CreateEpisode = () => {
     const [selectedPodcast, setSelectedPodcast] = useState<PodcastData>();
     const [episodeImage, setEpisodeImage] = useState<File>();
     const [episodeAudio, setEpisodeAudio] = useState<File>();
+    const navigate = useNavigate();
     const {
         user,
     } = useContext(AuthContext);
@@ -124,7 +126,7 @@ const CreateEpisode = () => {
 
                     const episodeId = await episodeService.create(episodeData);
                     podcastService.updatePodcastEpisodes(data.selectedPodcast, { episodes: episodeId.data });
-
+                    navigate(`/episode/${selectedPodcast!.name}/${episodeId.data}`)
                 });
             }
 

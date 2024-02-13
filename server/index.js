@@ -17,12 +17,12 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(error => console.log(error));
 
     app.use(cors(
-        {
-        origin: ['https://nexus-tunes.vercel.app'],
-        methods: ['POST', 'GET', 'PUT'],
-        credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']
-    }
+    //     {
+    //     origin: ['*'],
+    //     methods: ['POST', 'GET', 'PUT'],
+    //     credentials: true,
+    //     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin']
+    // }
     ));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

@@ -64,6 +64,7 @@ const EditProfile: React.FC<Props> = (props) => {
         updateAuth,
     } = useContext(AuthContext);
 
+    //TODO: Data doesn't update after close all the time. I think it sends it twice or something.
     const onSubmit = async (data: FormData) => {
 
         const userData: UserUpdate = {

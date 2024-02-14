@@ -28,8 +28,8 @@ const App = () => {
                         <Route path="/podcast/:podcastId" element={<DetailsPodcast />} ></Route>
                         <Route path="/episode/:podcastName/:episodeId" element={<DetailsEpisode />} ></Route>
                     </Routes>
-                    <Footer />
                 </div>
+                <Footer />
             </div>
         </AuthProvider>
     )

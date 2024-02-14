@@ -10,6 +10,7 @@ import UserProfile from "./components/userProfile/UserProfile";
 import CreateEpisode from "./components/createEpisode/CreateEpisode";
 import DetailsPodcast from "./components/detailsPodcast/DetailsPodcast";
 import DetailsEpisode from "./components/detailsEpisode/detailsEpisode";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
     return (
@@ -27,6 +28,7 @@ const App = () => {
                         <Route path="/podcast/:podcastId" element={<DetailsPodcast />} ></Route>
                         <Route path="/episode/:podcastName/:episodeId" element={<DetailsEpisode />} ></Route>
                     </Routes>
+                    <Footer />
                 </div>
             </div>
         </AuthProvider>

@@ -55,16 +55,13 @@ const schema = yup.object().shape({
 const EditProfile: React.FC<Props> = (props) => {
     const [userImage, setUserImage] = useState<string>();
     const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema),
-        defaultValues: {
-            description: props.user.description,
-        }
+        resolver: yupResolver(schema)
     });
     const {
         updateAuth,
     } = useContext(AuthContext);
 
-    //TODO: Data doesn't update after close all the time. I think it sends it twice or something.
+    //TODO: sometimes data is slow to come and doesn't rerender the user profile
     const onSubmit = async (data: FormData) => {
 
         const userData: UserUpdate = {
@@ -76,8 +73,8 @@ const EditProfile: React.FC<Props> = (props) => {
             updateAuth(userImage);
         }
 
-        userService.editUser(props.user._id, userData);
-        props.fetchData();
+        await userService.editUser(props.user._id, userData);
+        await props.fetchData();
         props.onHide();
     };
 
@@ -133,6 +130,7 @@ const EditProfile: React.FC<Props> = (props) => {
                             as={'textarea'}
                             type="text"
                             {...register('description')}
+                            defaultValue={props.user.description}
                             placeholder="Description"
                         />
                         <Form.Text className="text-danger">{errors['description']?.message}</Form.Text>

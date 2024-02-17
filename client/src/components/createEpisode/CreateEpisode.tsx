@@ -126,7 +126,7 @@ const CreateEpisode = () => {
 
                     const episodeId = await episodeService.create(episodeData);
                     podcastService.updatePodcastEpisodes(data.selectedPodcast, { episodes: episodeId.data });
-                    navigate(`/episode/${selectedPodcast!.name}/${episodeId.data}`)
+                    navigate(`/episode/${selectedPodcast!.name}/${episodeId.data}`);
                 });
             }
 

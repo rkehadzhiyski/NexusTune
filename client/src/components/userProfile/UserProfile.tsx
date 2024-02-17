@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contexts/authContext';
 
 import * as userService from '../../services/userService';
@@ -27,18 +27,26 @@ const UserProfile = () => {
         user,
     } = useContext(AuthContext);
 
-    const fetchData = useCallback(async () => {
+    const fetchData = async () => {
         try {
             const response = await userService.getOne(user.userId);
             setUserData(response.data);
         } catch (error) {
             console.error("Error fetching podcast:", error);
         }
-    }, [user.userId]);
+    };
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await userService.getOne(user.userId);
+                setUserData(response.data);
+            } catch (error) {
+                console.error("Error fetching podcast:", error);
+            }
+        };
         fetchData();
-    }, [user.userId, fetchData]);
+    }, [user.userId]);
 
     return (
         <div className={styles['profile-page']}>
@@ -48,9 +56,9 @@ const UserProfile = () => {
                 <div className={styles['profile-description']}>
                     <p>{userData?.description}</p>
                 </div>
-                    <Button className={styles['edit-button']} onClick={() => setModalShow(true)} style={{backgroundColor: '#5065a8'}}>
-                        Edit Profile
-                    </Button>
+                <Button className={styles['edit-button']} onClick={() => setModalShow(true)} style={{ backgroundColor: '#5065a8' }}>
+                    Edit Profile
+                </Button>
             </div>
             <div className={styles['user-podcasts']}>
                 <h2 className={styles['podcasts-heading']}>My Podcasts</h2>

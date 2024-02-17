@@ -39,7 +39,7 @@ router.post('/edit/:userId', async (req, res) => {
 
     try {
         const result = await userManager.edit(userId, req.body);
-        return result;
+        res.json(result);
     } catch (error) {
         res.status(400).json({
             message: 'There was an error:',
@@ -53,7 +53,7 @@ router.put('/update/:userId', async(req,res) => {
 
     try {
         const result = await userManager.update(userId, req.body);
-        return result;
+        res.json(result);
     } catch (error) {
         res.status(400).json({
             message: 'There was an error updating the user:',

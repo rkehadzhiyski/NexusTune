@@ -23,6 +23,9 @@ const Navigation = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
+                        <Nav>
+                            <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
+                        </Nav>
                     </Nav>
                     <Nav>
                         {isAuthenticated && (
@@ -30,8 +33,8 @@ const Navigation = () => {
                                 <img className={styles['profile-image']} src={user.image || '/user-image-default.webp'} alt="profile-image" />
                                 <NavDropdown title={user.username} id="nav-dropdown">
                                     <NavDropdown.Item as={Link} to="/user-profile">My Profile</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="/create-podcast">Add Podcast</NavDropdown.Item> 
-                                    <NavDropdown.Item as={Link} to="/create-episode">Add Episode</NavDropdown.Item> 
+                                    <NavDropdown.Item as={Link} to="/create-podcast">Add Podcast</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/create-episode">Add Episode</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item as={Link} onClick={logoutHandler} to="/">Logout</NavDropdown.Item>
                                 </NavDropdown>

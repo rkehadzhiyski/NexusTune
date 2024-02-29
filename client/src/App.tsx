@@ -12,6 +12,7 @@ import DetailsPodcast from "./components/detailsPodcast/DetailsPodcast";
 import DetailsEpisode from "./components/detailsEpisode/detailsEpisode";
 import Footer from "./components/footer/Footer";
 import AuthGuard from './components/guards/AuthGuard';
+import Browse from "./components/browse/Browse";
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                 <div className='inner-container'>
                     <Routes>
                         <Route path="/" element={<Home />} ></Route>
+                        <Route path="/browse" element={<Browse />} ></Route>
                         <Route path="/login" element={<Login />}></Route>
                         <Route path="/register" element={<Register />} ></Route>
                         <Route path="/podcast/:podcastId" element={<DetailsPodcast />} ></Route>

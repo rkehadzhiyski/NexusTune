@@ -5,7 +5,6 @@ import * as episodeService from '../../services/episodeService';
 
 import styles from './home.module.css';
 
-// import PodcastCard from "../podcastCard/PodcastCard";
 import Latest from "../latest/Latest";
 
 interface Podcast {
@@ -25,7 +24,6 @@ interface Episode {
 }
 
 const Home = () => {
-    // const [podcasts, setPodcasts] = useState<Podcast[]>([]);
     const [latestPodcasts, setLatestPodcasts] = useState<Podcast[]>([]);
     const [latestEpisodes, setLatestEpisodes] = useState<Episode[]>([]);
 
@@ -45,15 +43,6 @@ const Home = () => {
             .catch(error => {
                 console.error("Error fetching episodes:", error);
             });
-
-        // podcastService.getAll()
-        //     .then(response => {
-        //         setPodcasts(response.data);
-        //     })
-        //     .catch(error => {
-        //         console.error("Error fetching podcasts:", error);
-        //     });
-
     }, []);
 
     return (
@@ -80,11 +69,6 @@ const Home = () => {
                     <div className={styles['line']}></div>
                 </>
             }
-            {/* <section style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-                {podcasts.map((podcast) => (
-                    <PodcastCard key={podcast._id} podcast={podcast} />
-                ))}
-            </section> */}
         </div>
     );
 }

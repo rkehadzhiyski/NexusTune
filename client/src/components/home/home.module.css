@@ -6,7 +6,7 @@
 }
 
 .logo{
-    width: 30rem;
+    max-width: 20em;
     margin-bottom: 2em;
 }
 
@@ -14,10 +14,24 @@
     max-width: 50em;
     text-align: center;
     font-style: italic;
+    padding: 0 1.5em;
 }
 
 .line{
     width: 100%;
     border-bottom: 1px solid #5065a8;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media(min-width:40em){
+    .logo{
+        max-width: 35em;
+        margin-bottom: 2em;
+    }
+
+    .intro-text{
+        max-width: 50em;
+        text-align: center;
+        font-style: italic;
+    }
 }

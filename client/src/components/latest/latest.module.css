@@ -2,18 +2,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    width: 85rem;
+    gap: 1.5em;
+    max-width: 85em;
 }
 
-.latest-container {
+/* .latest-container {
     display: flex;
     border-radius: 8px;
-    width: 85rem;
-    gap: 20px;
-    padding-right: 5px;
+    max-width: 85em;
+    gap: 1.5em;
+    padding-right: 1.2em;
     cursor: pointer;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+} */
+
+@media(min-width:40em){
+    .latest-container {
+        display: flex;
+        flex-direction: row;
+        border-radius: 8px;
+        max-width: 85em;
+        gap: 1.5em;
+        padding-right: 1.2em;
+        cursor: pointer;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 }
 
 .latest-container-episodes {

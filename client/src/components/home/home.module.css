@@ -2,16 +2,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
+    gap: 3em;
 }
 
 .logo{
     width: 30rem;
-    margin-bottom: 20px;
+    margin-bottom: 2em;
 }
 
 .intro-text{
-    width: 50rem;
+    max-width: 50em;
     text-align: center;
     font-style: italic;
 }

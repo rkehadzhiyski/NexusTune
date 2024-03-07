@@ -78,7 +78,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
             <section className={styles['bottom-section']}>
                 {latest.slice(1).map(podcast => (
                     <div key={podcast._id} className={styles['additional-podcast-container']} onClick={type === 'podcast' ? () => navigateToPodcast(podcast._id) : () => navigateToEpisode(podcast.podcastName!, podcast._id)}>
-                        <Image className={styles['additional-podcast-image']} src={podcast.image} />
+                        <Image className={styles['podcast-image']} src={podcast.image} />
                         <div className={styles['podcast-info']}>
                             <div>
                                 <h4>{truncateText(podcast.name, 25)}</h4>

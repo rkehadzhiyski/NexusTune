@@ -39,7 +39,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                 <>
                     <h1>Latest Podcasts</h1>
                     <section className={styles['latest-container']} onClick={() => navigateToPodcast(latest[0]._id)}>
-                        <Image className={styles['podcast-image']} src={latest[0].image} rounded />
+                        <Image className={styles['focus-podcast-image']} src={latest[0].image} rounded />
                         <div className={styles['podcast-info']}>
                             <div>
                                 <h3>{latest[0].name}</h3>
@@ -70,7 +70,7 @@ const Latest: React.FC<PodcastCardProps> = ({ type, latest }) => {
                                 <p>{latest[0].duration !== undefined ? formatDuration(latest[0].duration) : ''} | {formatDate(latest[0].createdAt)}</p>
                             </div>
                         </div>
-                        <Image className={styles['podcast-image']} src={latest[0].image} rounded />
+                        <Image className={styles['focus-podcast-image']} src={latest[0].image} rounded />
                     </section>
                 </>
             }
